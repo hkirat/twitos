@@ -86,6 +86,11 @@ service Query {
 		option (google.api.http).get = "/hkirat/twitos/twitos/comment_like";
 	}
 
+// Queries a list of Tweets items.
+	rpc Tweets(QueryTweetsRequest) returns (QueryTweetsResponse) {
+		option (google.api.http).get = "/hkirat/twitos/twitos/tweets/{userId}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -207,6 +212,15 @@ message QueryAllCommentLikeRequest {
 message QueryAllCommentLikeResponse {
 	repeated CommentLike commentLike = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryTweetsRequest {
+  uint64 userId = 1;
+}
+
+message QueryTweetsResponse {
+  string title = 1;
+  string body = 2;
 }
 
 // this line is used by starport scaffolding # 3

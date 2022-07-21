@@ -62,6 +62,7 @@ const getDefaultState = () => {
 				CommentAll: {},
 				CommentLike: {},
 				CommentLikeAll: {},
+				Tweets: {},
 				
 				_Structure: {
 						Comment: getStructure(Comment.fromPartial({})),
@@ -183,6 +184,12 @@ export default {
 						(<any> params).query=null
 					}
 			return state.CommentLikeAll[JSON.stringify(params)] ?? {}
+		},
+				getTweets: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.Tweets[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -550,6 +557,28 @@ export default {
 		},
 		
 		
+		
+		
+		 		
+		
+		
+		async QueryTweets({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryTweets( key.userId)).data
+				
+					
+				commit('QUERY', { query: 'Tweets', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryTweets', payload: { options: { all }, params: {...key},query }})
+				return getters['getTweets']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryTweets API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
 		async sendMsgCreateUser({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -565,18 +594,18 @@ export default {
 				}
 			}
 		},
-		async sendMsgCreateComment({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgCreateTweet({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateComment(value)
+				const msg = await txClient.msgCreateTweet(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateComment:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgCreateTweet:Init Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgCreateComment:Send Could not broadcast Tx: '+ e.message)
+					throw new Error('TxClient:MsgCreateTweet:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -610,18 +639,18 @@ export default {
 				}
 			}
 		},
-		async sendMsgCreateTweet({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgCreateComment({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateTweet(value)
+				const msg = await txClient.msgCreateComment(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateTweet:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgCreateComment:Init Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgCreateTweet:Send Could not broadcast Tx: '+ e.message)
+					throw new Error('TxClient:MsgCreateComment:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -639,16 +668,16 @@ export default {
 				}
 			}
 		},
-		async MsgCreateComment({ rootGetters }, { value }) {
+		async MsgCreateTweet({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateComment(value)
+				const msg = await txClient.msgCreateTweet(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateComment:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgCreateTweet:Init Could not initialize signing client. Wallet is required.')
 				} else{
-					throw new Error('TxClient:MsgCreateComment:Create Could not create message: ' + e.message)
+					throw new Error('TxClient:MsgCreateTweet:Create Could not create message: ' + e.message)
 				}
 			}
 		},
@@ -678,16 +707,16 @@ export default {
 				}
 			}
 		},
-		async MsgCreateTweet({ rootGetters }, { value }) {
+		async MsgCreateComment({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateTweet(value)
+				const msg = await txClient.msgCreateComment(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateTweet:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgCreateComment:Init Could not initialize signing client. Wallet is required.')
 				} else{
-					throw new Error('TxClient:MsgCreateTweet:Create Could not create message: ' + e.message)
+					throw new Error('TxClient:MsgCreateComment:Create Could not create message: ' + e.message)
 				}
 			}
 		},

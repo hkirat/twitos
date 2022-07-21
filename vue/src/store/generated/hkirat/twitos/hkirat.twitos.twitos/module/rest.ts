@@ -210,6 +210,11 @@ export interface TwitosQueryParamsResponse {
   params?: TwitosParams;
 }
 
+export interface TwitosQueryTweetsResponse {
+  title?: string;
+  body?: string;
+}
+
 export interface TwitosTweet {
   /** @format uint64 */
   id?: string;
@@ -705,6 +710,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryTweetLike = (index: string, params: RequestParams = {}) =>
     this.request<TwitosQueryGetTweetLikeResponse, RpcStatus>({
       path: `/hkirat/twitos/twitos/tweet_like/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryTweets
+   * @summary Queries a list of Tweets items.
+   * @request GET:/hkirat/twitos/twitos/tweets/{userId}
+   */
+  queryTweets = (userId: string, params: RequestParams = {}) =>
+    this.request<TwitosQueryTweetsResponse, RpcStatus>({
+      path: `/hkirat/twitos/twitos/tweets/${userId}`,
       method: "GET",
       format: "json",
       ...params,
