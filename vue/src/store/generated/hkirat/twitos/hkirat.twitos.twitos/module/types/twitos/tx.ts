@@ -42,6 +42,16 @@ export interface MsgCreateCommentResponse {
   idValue: string;
 }
 
+export interface MsgLikeComment {
+  creator: string;
+  commentId: number;
+  like: boolean;
+}
+
+export interface MsgLikeCommentResponse {
+  done: boolean;
+}
+
 const baseMsgCreateUser: object = { creator: "", name: "" };
 
 export const MsgCreateUser = {
@@ -617,13 +627,163 @@ export const MsgCreateCommentResponse = {
   },
 };
 
+const baseMsgLikeComment: object = { creator: "", commentId: 0, like: false };
+
+export const MsgLikeComment = {
+  encode(message: MsgLikeComment, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.commentId !== 0) {
+      writer.uint32(16).uint64(message.commentId);
+    }
+    if (message.like === true) {
+      writer.uint32(24).bool(message.like);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgLikeComment {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgLikeComment } as MsgLikeComment;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.commentId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.like = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgLikeComment {
+    const message = { ...baseMsgLikeComment } as MsgLikeComment;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.commentId !== undefined && object.commentId !== null) {
+      message.commentId = Number(object.commentId);
+    } else {
+      message.commentId = 0;
+    }
+    if (object.like !== undefined && object.like !== null) {
+      message.like = Boolean(object.like);
+    } else {
+      message.like = false;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgLikeComment): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.commentId !== undefined && (obj.commentId = message.commentId);
+    message.like !== undefined && (obj.like = message.like);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgLikeComment>): MsgLikeComment {
+    const message = { ...baseMsgLikeComment } as MsgLikeComment;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.commentId !== undefined && object.commentId !== null) {
+      message.commentId = object.commentId;
+    } else {
+      message.commentId = 0;
+    }
+    if (object.like !== undefined && object.like !== null) {
+      message.like = object.like;
+    } else {
+      message.like = false;
+    }
+    return message;
+  },
+};
+
+const baseMsgLikeCommentResponse: object = { done: false };
+
+export const MsgLikeCommentResponse = {
+  encode(
+    message: MsgLikeCommentResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.done === true) {
+      writer.uint32(8).bool(message.done);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgLikeCommentResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgLikeCommentResponse } as MsgLikeCommentResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.done = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgLikeCommentResponse {
+    const message = { ...baseMsgLikeCommentResponse } as MsgLikeCommentResponse;
+    if (object.done !== undefined && object.done !== null) {
+      message.done = Boolean(object.done);
+    } else {
+      message.done = false;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgLikeCommentResponse): unknown {
+    const obj: any = {};
+    message.done !== undefined && (obj.done = message.done);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgLikeCommentResponse>
+  ): MsgLikeCommentResponse {
+    const message = { ...baseMsgLikeCommentResponse } as MsgLikeCommentResponse;
+    if (object.done !== undefined && object.done !== null) {
+      message.done = object.done;
+    } else {
+      message.done = false;
+    }
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   CreateUser(request: MsgCreateUser): Promise<MsgCreateUserResponse>;
   CreateTweet(request: MsgCreateTweet): Promise<MsgCreateTweetResponse>;
   LikeTweet(request: MsgLikeTweet): Promise<MsgLikeTweetResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   CreateComment(request: MsgCreateComment): Promise<MsgCreateCommentResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  LikeComment(request: MsgLikeComment): Promise<MsgLikeCommentResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -676,6 +836,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCreateCommentResponse.decode(new Reader(data))
+    );
+  }
+
+  LikeComment(request: MsgLikeComment): Promise<MsgLikeCommentResponse> {
+    const data = MsgLikeComment.encode(request).finish();
+    const promise = this.rpc.request(
+      "hkirat.twitos.twitos.Msg",
+      "LikeComment",
+      data
+    );
+    return promise.then((data) =>
+      MsgLikeCommentResponse.decode(new Reader(data))
     );
   }
 }

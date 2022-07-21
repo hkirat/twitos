@@ -11,6 +11,7 @@ service Msg {
   rpc CreateTweet(MsgCreateTweet) returns (MsgCreateTweetResponse);
   rpc LikeTweet(MsgLikeTweet) returns (MsgLikeTweetResponse);
   rpc CreateComment(MsgCreateComment) returns (MsgCreateCommentResponse);
+  rpc LikeComment(MsgLikeComment) returns (MsgLikeCommentResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -50,6 +51,16 @@ message MsgCreateComment {
 
 message MsgCreateCommentResponse {
   string idValue = 1;
+}
+
+message MsgLikeComment {
+  string creator = 1;
+  uint64 commentId = 2;
+  bool like = 3;
+}
+
+message MsgLikeCommentResponse {
+  bool done = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message

@@ -12,6 +12,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateTweet{}, "twitos/CreateTweet", nil)
 	cdc.RegisterConcrete(&MsgLikeTweet{}, "twitos/LikeTweet", nil)
 	cdc.RegisterConcrete(&MsgCreateComment{}, "twitos/CreateComment", nil)
+	cdc.RegisterConcrete(&MsgLikeComment{}, "twitos/LikeComment", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -27,6 +28,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateComment{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgLikeComment{},
 	)
 	// this line is used by starport scaffolding # 3
 

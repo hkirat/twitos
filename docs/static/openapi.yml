@@ -48294,6 +48294,11 @@ definitions:
     properties:
       idValue:
         type: string
+  hkirat.twitos.twitos.MsgLikeCommentResponse:
+    type: object
+    properties:
+      done:
+        type: boolean
   hkirat.twitos.twitos.MsgLikeTweetResponse:
     type: object
     properties:

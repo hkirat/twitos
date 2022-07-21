@@ -40,6 +40,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgCreateComment int = 100
 
+	opWeightMsgLikeComment = "op_weight_msg_like_comment"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgLikeComment int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -116,6 +120,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgCreateComment,
 		twitossimulation.SimulateMsgCreateComment(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgLikeComment int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgLikeComment, &weightMsgLikeComment, nil,
+		func(_ *rand.Rand) {
+			weightMsgLikeComment = defaultWeightMsgLikeComment
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgLikeComment,
+		twitossimulation.SimulateMsgLikeComment(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

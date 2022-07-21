@@ -71,6 +71,10 @@ export interface TwitosMsgCreateUserResponse {
   idValue?: string;
 }
 
+export interface TwitosMsgLikeCommentResponse {
+  done?: boolean;
+}
+
 export interface TwitosMsgLikeTweetResponse {
   done?: boolean;
 }
