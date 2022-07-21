@@ -10,6 +10,7 @@ import {
 } from "../cosmos/base/query/v1beta1/pagination";
 import { WalletToUserId } from "../twitos/wallet_to_user_id";
 import { Tweet } from "../twitos/tweet";
+import { TweetLike } from "../twitos/tweet_like";
 
 export const protobufPackage = "hkirat.twitos.twitos";
 
@@ -76,6 +77,23 @@ export interface QueryAllTweetRequest {
 
 export interface QueryAllTweetResponse {
   Tweet: Tweet[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetTweetLikeRequest {
+  index: string;
+}
+
+export interface QueryGetTweetLikeResponse {
+  tweetLike: TweetLike | undefined;
+}
+
+export interface QueryAllTweetLikeRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllTweetLikeResponse {
+  tweetLike: TweetLike[];
   pagination: PageResponse | undefined;
 }
 
@@ -1135,6 +1153,320 @@ export const QueryAllTweetResponse = {
   },
 };
 
+const baseQueryGetTweetLikeRequest: object = { index: "" };
+
+export const QueryGetTweetLikeRequest = {
+  encode(
+    message: QueryGetTweetLikeRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetTweetLikeRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetTweetLikeRequest,
+    } as QueryGetTweetLikeRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetTweetLikeRequest {
+    const message = {
+      ...baseQueryGetTweetLikeRequest,
+    } as QueryGetTweetLikeRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetTweetLikeRequest): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetTweetLikeRequest>
+  ): QueryGetTweetLikeRequest {
+    const message = {
+      ...baseQueryGetTweetLikeRequest,
+    } as QueryGetTweetLikeRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetTweetLikeResponse: object = {};
+
+export const QueryGetTweetLikeResponse = {
+  encode(
+    message: QueryGetTweetLikeResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.tweetLike !== undefined) {
+      TweetLike.encode(message.tweetLike, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetTweetLikeResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetTweetLikeResponse,
+    } as QueryGetTweetLikeResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.tweetLike = TweetLike.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetTweetLikeResponse {
+    const message = {
+      ...baseQueryGetTweetLikeResponse,
+    } as QueryGetTweetLikeResponse;
+    if (object.tweetLike !== undefined && object.tweetLike !== null) {
+      message.tweetLike = TweetLike.fromJSON(object.tweetLike);
+    } else {
+      message.tweetLike = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetTweetLikeResponse): unknown {
+    const obj: any = {};
+    message.tweetLike !== undefined &&
+      (obj.tweetLike = message.tweetLike
+        ? TweetLike.toJSON(message.tweetLike)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetTweetLikeResponse>
+  ): QueryGetTweetLikeResponse {
+    const message = {
+      ...baseQueryGetTweetLikeResponse,
+    } as QueryGetTweetLikeResponse;
+    if (object.tweetLike !== undefined && object.tweetLike !== null) {
+      message.tweetLike = TweetLike.fromPartial(object.tweetLike);
+    } else {
+      message.tweetLike = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllTweetLikeRequest: object = {};
+
+export const QueryAllTweetLikeRequest = {
+  encode(
+    message: QueryAllTweetLikeRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllTweetLikeRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllTweetLikeRequest,
+    } as QueryAllTweetLikeRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllTweetLikeRequest {
+    const message = {
+      ...baseQueryAllTweetLikeRequest,
+    } as QueryAllTweetLikeRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllTweetLikeRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllTweetLikeRequest>
+  ): QueryAllTweetLikeRequest {
+    const message = {
+      ...baseQueryAllTweetLikeRequest,
+    } as QueryAllTweetLikeRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllTweetLikeResponse: object = {};
+
+export const QueryAllTweetLikeResponse = {
+  encode(
+    message: QueryAllTweetLikeResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.tweetLike) {
+      TweetLike.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllTweetLikeResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllTweetLikeResponse,
+    } as QueryAllTweetLikeResponse;
+    message.tweetLike = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.tweetLike.push(TweetLike.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllTweetLikeResponse {
+    const message = {
+      ...baseQueryAllTweetLikeResponse,
+    } as QueryAllTweetLikeResponse;
+    message.tweetLike = [];
+    if (object.tweetLike !== undefined && object.tweetLike !== null) {
+      for (const e of object.tweetLike) {
+        message.tweetLike.push(TweetLike.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllTweetLikeResponse): unknown {
+    const obj: any = {};
+    if (message.tweetLike) {
+      obj.tweetLike = message.tweetLike.map((e) =>
+        e ? TweetLike.toJSON(e) : undefined
+      );
+    } else {
+      obj.tweetLike = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllTweetLikeResponse>
+  ): QueryAllTweetLikeResponse {
+    const message = {
+      ...baseQueryAllTweetLikeResponse,
+    } as QueryAllTweetLikeResponse;
+    message.tweetLike = [];
+    if (object.tweetLike !== undefined && object.tweetLike !== null) {
+      for (const e of object.tweetLike) {
+        message.tweetLike.push(TweetLike.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -1157,6 +1489,14 @@ export interface Query {
   Tweet(request: QueryGetTweetRequest): Promise<QueryGetTweetResponse>;
   /** Queries a list of Tweet items. */
   TweetAll(request: QueryAllTweetRequest): Promise<QueryAllTweetResponse>;
+  /** Queries a TweetLike by index. */
+  TweetLike(
+    request: QueryGetTweetLikeRequest
+  ): Promise<QueryGetTweetLikeResponse>;
+  /** Queries a list of TweetLike items. */
+  TweetLikeAll(
+    request: QueryAllTweetLikeRequest
+  ): Promise<QueryAllTweetLikeResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1259,6 +1599,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllTweetResponse.decode(new Reader(data))
+    );
+  }
+
+  TweetLike(
+    request: QueryGetTweetLikeRequest
+  ): Promise<QueryGetTweetLikeResponse> {
+    const data = QueryGetTweetLikeRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "hkirat.twitos.twitos.Query",
+      "TweetLike",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetTweetLikeResponse.decode(new Reader(data))
+    );
+  }
+
+  TweetLikeAll(
+    request: QueryAllTweetLikeRequest
+  ): Promise<QueryAllTweetLikeResponse> {
+    const data = QueryAllTweetLikeRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "hkirat.twitos.twitos.Query",
+      "TweetLikeAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllTweetLikeResponse.decode(new Reader(data))
     );
   }
 }
