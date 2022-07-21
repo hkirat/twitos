@@ -8,6 +8,7 @@ import { WalletToUserId } from "../twitos/wallet_to_user_id";
 import { Tweet } from "../twitos/tweet";
 import { TweetLike } from "../twitos/tweet_like";
 import { Comment } from "../twitos/comment";
+import { CommentLike } from "../twitos/comment_like";
 
 export const protobufPackage = "hkirat.twitos.twitos";
 
@@ -21,8 +22,9 @@ export interface GenesisState {
   tweetCount: number;
   tweetLikeList: TweetLike[];
   commentList: Comment[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   commentCount: number;
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  commentLikeList: CommentLike[];
 }
 
 const baseGenesisState: object = { tweetCount: 0, commentCount: 0 };
@@ -56,6 +58,9 @@ export const GenesisState = {
     if (message.commentCount !== 0) {
       writer.uint32(72).uint64(message.commentCount);
     }
+    for (const v of message.commentLikeList) {
+      CommentLike.encode(v!, writer.uint32(82).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -68,6 +73,7 @@ export const GenesisState = {
     message.tweetList = [];
     message.tweetLikeList = [];
     message.commentList = [];
+    message.commentLikeList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -100,6 +106,11 @@ export const GenesisState = {
         case 9:
           message.commentCount = longToNumber(reader.uint64() as Long);
           break;
+        case 10:
+          message.commentLikeList.push(
+            CommentLike.decode(reader, reader.uint32())
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -115,6 +126,7 @@ export const GenesisState = {
     message.tweetList = [];
     message.tweetLikeList = [];
     message.commentList = [];
+    message.commentLikeList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -163,6 +175,14 @@ export const GenesisState = {
     } else {
       message.commentCount = 0;
     }
+    if (
+      object.commentLikeList !== undefined &&
+      object.commentLikeList !== null
+    ) {
+      for (const e of object.commentLikeList) {
+        message.commentLikeList.push(CommentLike.fromJSON(e));
+      }
+    }
     return message;
   },
 
@@ -210,6 +230,13 @@ export const GenesisState = {
     }
     message.commentCount !== undefined &&
       (obj.commentCount = message.commentCount);
+    if (message.commentLikeList) {
+      obj.commentLikeList = message.commentLikeList.map((e) =>
+        e ? CommentLike.toJSON(e) : undefined
+      );
+    } else {
+      obj.commentLikeList = [];
+    }
     return obj;
   },
 
@@ -220,6 +247,7 @@ export const GenesisState = {
     message.tweetList = [];
     message.tweetLikeList = [];
     message.commentList = [];
+    message.commentLikeList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -267,6 +295,14 @@ export const GenesisState = {
       message.commentCount = object.commentCount;
     } else {
       message.commentCount = 0;
+    }
+    if (
+      object.commentLikeList !== undefined &&
+      object.commentLikeList !== null
+    ) {
+      for (const e of object.commentLikeList) {
+        message.commentLikeList.push(CommentLike.fromPartial(e));
+      }
     }
     return message;
   },

@@ -9,6 +9,7 @@ import "twitos/wallet_to_user_id.proto";
 import "twitos/tweet.proto";
 import "twitos/tweet_like.proto";
 import "twitos/comment.proto";
+import "twitos/comment_like.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/hkirat/twitos/x/twitos/types";
@@ -24,5 +25,6 @@ message GenesisState {
   repeated TweetLike tweetLikeList = 7 [(gogoproto.nullable) = false];
   repeated Comment commentList = 8 [(gogoproto.nullable) = false];
   uint64 commentCount = 9;
+  repeated CommentLike commentLikeList = 10 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }

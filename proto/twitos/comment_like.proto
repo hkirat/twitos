@@ -1,0 +1,12 @@
+syntax = "proto3";
+package hkirat.twitos.twitos;
+
+option go_package = "github.com/hkirat/twitos/x/twitos/types";
+
+message CommentLike {
+  string index = 1; 
+  uint64 commentId = 2; 
+  uint64 user = 3; 
+  
+}
+

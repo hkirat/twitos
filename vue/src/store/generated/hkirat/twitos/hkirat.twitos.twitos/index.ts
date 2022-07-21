@@ -1,6 +1,7 @@
 import { txClient, queryClient, MissingWalletError , registry} from './module'
 
 import { Comment } from "./module/types/twitos/comment"
+import { CommentLike } from "./module/types/twitos/comment_like"
 import { DbHead } from "./module/types/twitos/db_head"
 import { Params } from "./module/types/twitos/params"
 import { Tweet } from "./module/types/twitos/tweet"
@@ -9,7 +10,7 @@ import { User } from "./module/types/twitos/user"
 import { WalletToUserId } from "./module/types/twitos/wallet_to_user_id"
 
 
-export { Comment, DbHead, Params, Tweet, TweetLike, User, WalletToUserId };
+export { Comment, CommentLike, DbHead, Params, Tweet, TweetLike, User, WalletToUserId };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -59,9 +60,12 @@ const getDefaultState = () => {
 				TweetLikeAll: {},
 				Comment: {},
 				CommentAll: {},
+				CommentLike: {},
+				CommentLikeAll: {},
 				
 				_Structure: {
 						Comment: getStructure(Comment.fromPartial({})),
+						CommentLike: getStructure(CommentLike.fromPartial({})),
 						DbHead: getStructure(DbHead.fromPartial({})),
 						Params: getStructure(Params.fromPartial({})),
 						Tweet: getStructure(Tweet.fromPartial({})),
@@ -167,6 +171,18 @@ export default {
 						(<any> params).query=null
 					}
 			return state.CommentAll[JSON.stringify(params)] ?? {}
+		},
+				getCommentLike: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.CommentLike[JSON.stringify(params)] ?? {}
+		},
+				getCommentLikeAll: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.CommentLikeAll[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -481,6 +497,54 @@ export default {
 				return getters['getCommentAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new Error('QueryClient:QueryCommentAll API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryCommentLike({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryCommentLike( key.index)).data
+				
+					
+				commit('QUERY', { query: 'CommentLike', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryCommentLike', payload: { options: { all }, params: {...key},query }})
+				return getters['getCommentLike']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryCommentLike API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryCommentLikeAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryCommentLikeAll(query)).data
+				
+					
+				while (all && (<any> value).pagination && (<any> value).pagination.next_key!=null) {
+					let next_values=(await queryClient.queryCommentLikeAll({...query, 'pagination.key':(<any> value).pagination.next_key})).data
+					value = mergeResults(value, next_values);
+				}
+				commit('QUERY', { query: 'CommentLikeAll', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryCommentLikeAll', payload: { options: { all }, params: {...key},query }})
+				return getters['getCommentLikeAll']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryCommentLikeAll API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},

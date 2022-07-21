@@ -11,6 +11,7 @@ import "twitos/wallet_to_user_id.proto";
 import "twitos/tweet.proto";
 import "twitos/tweet_like.proto";
 import "twitos/comment.proto";
+import "twitos/comment_like.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/hkirat/twitos/x/twitos/types";
@@ -73,6 +74,16 @@ service Query {
 	// Queries a list of Comment items.
 	rpc CommentAll(QueryAllCommentRequest) returns (QueryAllCommentResponse) {
 		option (google.api.http).get = "/hkirat/twitos/twitos/comment";
+	}
+
+// Queries a CommentLike by index.
+	rpc CommentLike(QueryGetCommentLikeRequest) returns (QueryGetCommentLikeResponse) {
+		option (google.api.http).get = "/hkirat/twitos/twitos/comment_like/{index}";
+	}
+
+	// Queries a list of CommentLike items.
+	rpc CommentLikeAll(QueryAllCommentLikeRequest) returns (QueryAllCommentLikeResponse) {
+		option (google.api.http).get = "/hkirat/twitos/twitos/comment_like";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -177,6 +188,24 @@ message QueryAllCommentRequest {
 
 message QueryAllCommentResponse {
 	repeated Comment Comment = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetCommentLikeRequest {
+	  string index = 1;
+
+}
+
+message QueryGetCommentLikeResponse {
+	CommentLike commentLike = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCommentLikeRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCommentLikeResponse {
+	repeated CommentLike commentLike = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

@@ -16,6 +16,7 @@ func DefaultGenesis() *GenesisState {
 		TweetList:          []Tweet{},
 		TweetLikeList:      []TweetLike{},
 		CommentList:        []Comment{},
+		CommentLikeList:    []CommentLike{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -77,6 +78,16 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("comment id should be lower or equal than the last id")
 		}
 		commentIdMap[elem.Id] = true
+	}
+	// Check for duplicated index in commentLike
+	commentLikeIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.CommentLikeList {
+		index := string(CommentLikeKey(elem.Index))
+		if _, ok := commentLikeIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for commentLike")
+		}
+		commentLikeIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

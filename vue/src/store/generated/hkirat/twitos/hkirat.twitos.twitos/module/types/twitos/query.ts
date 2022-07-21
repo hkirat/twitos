@@ -12,6 +12,7 @@ import { WalletToUserId } from "../twitos/wallet_to_user_id";
 import { Tweet } from "../twitos/tweet";
 import { TweetLike } from "../twitos/tweet_like";
 import { Comment } from "../twitos/comment";
+import { CommentLike } from "../twitos/comment_like";
 
 export const protobufPackage = "hkirat.twitos.twitos";
 
@@ -112,6 +113,23 @@ export interface QueryAllCommentRequest {
 
 export interface QueryAllCommentResponse {
   Comment: Comment[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetCommentLikeRequest {
+  index: string;
+}
+
+export interface QueryGetCommentLikeResponse {
+  commentLike: CommentLike | undefined;
+}
+
+export interface QueryAllCommentLikeRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllCommentLikeResponse {
+  commentLike: CommentLike[];
   pagination: PageResponse | undefined;
 }
 
@@ -1775,6 +1793,323 @@ export const QueryAllCommentResponse = {
   },
 };
 
+const baseQueryGetCommentLikeRequest: object = { index: "" };
+
+export const QueryGetCommentLikeRequest = {
+  encode(
+    message: QueryGetCommentLikeRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetCommentLikeRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetCommentLikeRequest,
+    } as QueryGetCommentLikeRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetCommentLikeRequest {
+    const message = {
+      ...baseQueryGetCommentLikeRequest,
+    } as QueryGetCommentLikeRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetCommentLikeRequest): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetCommentLikeRequest>
+  ): QueryGetCommentLikeRequest {
+    const message = {
+      ...baseQueryGetCommentLikeRequest,
+    } as QueryGetCommentLikeRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetCommentLikeResponse: object = {};
+
+export const QueryGetCommentLikeResponse = {
+  encode(
+    message: QueryGetCommentLikeResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.commentLike !== undefined) {
+      CommentLike.encode(
+        message.commentLike,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetCommentLikeResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetCommentLikeResponse,
+    } as QueryGetCommentLikeResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.commentLike = CommentLike.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetCommentLikeResponse {
+    const message = {
+      ...baseQueryGetCommentLikeResponse,
+    } as QueryGetCommentLikeResponse;
+    if (object.commentLike !== undefined && object.commentLike !== null) {
+      message.commentLike = CommentLike.fromJSON(object.commentLike);
+    } else {
+      message.commentLike = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetCommentLikeResponse): unknown {
+    const obj: any = {};
+    message.commentLike !== undefined &&
+      (obj.commentLike = message.commentLike
+        ? CommentLike.toJSON(message.commentLike)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetCommentLikeResponse>
+  ): QueryGetCommentLikeResponse {
+    const message = {
+      ...baseQueryGetCommentLikeResponse,
+    } as QueryGetCommentLikeResponse;
+    if (object.commentLike !== undefined && object.commentLike !== null) {
+      message.commentLike = CommentLike.fromPartial(object.commentLike);
+    } else {
+      message.commentLike = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllCommentLikeRequest: object = {};
+
+export const QueryAllCommentLikeRequest = {
+  encode(
+    message: QueryAllCommentLikeRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllCommentLikeRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllCommentLikeRequest,
+    } as QueryAllCommentLikeRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllCommentLikeRequest {
+    const message = {
+      ...baseQueryAllCommentLikeRequest,
+    } as QueryAllCommentLikeRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllCommentLikeRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllCommentLikeRequest>
+  ): QueryAllCommentLikeRequest {
+    const message = {
+      ...baseQueryAllCommentLikeRequest,
+    } as QueryAllCommentLikeRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllCommentLikeResponse: object = {};
+
+export const QueryAllCommentLikeResponse = {
+  encode(
+    message: QueryAllCommentLikeResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.commentLike) {
+      CommentLike.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllCommentLikeResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllCommentLikeResponse,
+    } as QueryAllCommentLikeResponse;
+    message.commentLike = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.commentLike.push(CommentLike.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllCommentLikeResponse {
+    const message = {
+      ...baseQueryAllCommentLikeResponse,
+    } as QueryAllCommentLikeResponse;
+    message.commentLike = [];
+    if (object.commentLike !== undefined && object.commentLike !== null) {
+      for (const e of object.commentLike) {
+        message.commentLike.push(CommentLike.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllCommentLikeResponse): unknown {
+    const obj: any = {};
+    if (message.commentLike) {
+      obj.commentLike = message.commentLike.map((e) =>
+        e ? CommentLike.toJSON(e) : undefined
+      );
+    } else {
+      obj.commentLike = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllCommentLikeResponse>
+  ): QueryAllCommentLikeResponse {
+    const message = {
+      ...baseQueryAllCommentLikeResponse,
+    } as QueryAllCommentLikeResponse;
+    message.commentLike = [];
+    if (object.commentLike !== undefined && object.commentLike !== null) {
+      for (const e of object.commentLike) {
+        message.commentLike.push(CommentLike.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -1809,6 +2144,14 @@ export interface Query {
   Comment(request: QueryGetCommentRequest): Promise<QueryGetCommentResponse>;
   /** Queries a list of Comment items. */
   CommentAll(request: QueryAllCommentRequest): Promise<QueryAllCommentResponse>;
+  /** Queries a CommentLike by index. */
+  CommentLike(
+    request: QueryGetCommentLikeRequest
+  ): Promise<QueryGetCommentLikeResponse>;
+  /** Queries a list of CommentLike items. */
+  CommentLikeAll(
+    request: QueryAllCommentLikeRequest
+  ): Promise<QueryAllCommentLikeResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1965,6 +2308,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllCommentResponse.decode(new Reader(data))
+    );
+  }
+
+  CommentLike(
+    request: QueryGetCommentLikeRequest
+  ): Promise<QueryGetCommentLikeResponse> {
+    const data = QueryGetCommentLikeRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "hkirat.twitos.twitos.Query",
+      "CommentLike",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetCommentLikeResponse.decode(new Reader(data))
+    );
+  }
+
+  CommentLikeAll(
+    request: QueryAllCommentLikeRequest
+  ): Promise<QueryAllCommentLikeResponse> {
+    const data = QueryAllCommentLikeRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "hkirat.twitos.twitos.Query",
+      "CommentLikeAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllCommentLikeResponse.decode(new Reader(data))
     );
   }
 }

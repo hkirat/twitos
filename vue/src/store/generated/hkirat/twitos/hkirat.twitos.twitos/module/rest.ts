@@ -38,6 +38,16 @@ export interface TwitosComment {
   owner?: string;
 }
 
+export interface TwitosCommentLike {
+  index?: string;
+
+  /** @format uint64 */
+  commentId?: string;
+
+  /** @format uint64 */
+  user?: string;
+}
+
 export interface TwitosDbHead {
   /** @format uint64 */
   userIndex?: string;
@@ -53,6 +63,21 @@ export interface TwitosDbHead {
  * Params defines the parameters for the module.
  */
 export type TwitosParams = object;
+
+export interface TwitosQueryAllCommentLikeResponse {
+  commentLike?: TwitosCommentLike[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
 
 export interface TwitosQueryAllCommentResponse {
   Comment?: TwitosComment[];
@@ -127,6 +152,10 @@ export interface TwitosQueryAllWalletToUserIdResponse {
    *  }
    */
   pagination?: V1Beta1PageResponse;
+}
+
+export interface TwitosQueryGetCommentLikeResponse {
+  commentLike?: TwitosCommentLike;
 }
 
 export interface TwitosQueryGetCommentResponse {
@@ -498,6 +527,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryComment = (id: string, params: RequestParams = {}) =>
     this.request<TwitosQueryGetCommentResponse, RpcStatus>({
       path: `/hkirat/twitos/twitos/comment/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryCommentLikeAll
+   * @summary Queries a list of CommentLike items.
+   * @request GET:/hkirat/twitos/twitos/comment_like
+   */
+  queryCommentLikeAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<TwitosQueryAllCommentLikeResponse, RpcStatus>({
+      path: `/hkirat/twitos/twitos/comment_like`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryCommentLike
+   * @summary Queries a CommentLike by index.
+   * @request GET:/hkirat/twitos/twitos/comment_like/{index}
+   */
+  queryCommentLike = (index: string, params: RequestParams = {}) =>
+    this.request<TwitosQueryGetCommentLikeResponse, RpcStatus>({
+      path: `/hkirat/twitos/twitos/comment_like/${index}`,
       method: "GET",
       format: "json",
       ...params,
