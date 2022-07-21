@@ -19,9 +19,14 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid:    true,
 		},
 		{
-			desc:     "valid genesis state",
+			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
+				DbHead: &types.DbHead{
+					UserIndex:    33,
+					TweetIndex:   96,
+					CommentIndex: 28,
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,

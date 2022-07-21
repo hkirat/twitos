@@ -1,0 +1,11 @@
+syntax = "proto3";
+package hkirat.twitos.twitos;
+
+option go_package = "github.com/hkirat/twitos/x/twitos/types";
+
+message DbHead {
+  uint64 userIndex = 1; 
+  uint64 tweetIndex = 2; 
+  uint64 commentIndex = 3; 
+  
+}

@@ -19749,6 +19749,48 @@ paths:
           format: int64
       tags:
         - Query
+  /hkirat/twitos/twitos/db_head:
+    get:
+      summary: Queries a DbHead by index.
+      operationId: HkiratTwitosTwitosDbHead
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              DbHead:
+                type: object
+                properties:
+                  userIndex:
+                    type: string
+                    format: uint64
+                  tweetIndex:
+                    type: string
+                    format: uint64
+                  commentIndex:
+                    type: string
+                    format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   /hkirat/twitos/twitos/params:
     get:
       summary: Parameters queries the parameters of the module.
@@ -47128,9 +47170,36 @@ definitions:
     description: >-
       MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount
       response type.
+  hkirat.twitos.twitos.DbHead:
+    type: object
+    properties:
+      userIndex:
+        type: string
+        format: uint64
+      tweetIndex:
+        type: string
+        format: uint64
+      commentIndex:
+        type: string
+        format: uint64
   hkirat.twitos.twitos.Params:
     type: object
     description: Params defines the parameters for the module.
+  hkirat.twitos.twitos.QueryGetDbHeadResponse:
+    type: object
+    properties:
+      DbHead:
+        type: object
+        properties:
+          userIndex:
+            type: string
+            format: uint64
+          tweetIndex:
+            type: string
+            format: uint64
+          commentIndex:
+            type: string
+            format: uint64
   hkirat.twitos.twitos.QueryParamsResponse:
     type: object
     properties:

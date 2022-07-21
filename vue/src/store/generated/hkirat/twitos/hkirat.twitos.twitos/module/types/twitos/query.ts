@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { Reader, Writer } from "protobufjs/minimal";
 import { Params } from "../twitos/params";
+import { DbHead } from "../twitos/db_head";
 
 export const protobufPackage = "hkirat.twitos.twitos";
 
@@ -11,6 +12,12 @@ export interface QueryParamsRequest {}
 export interface QueryParamsResponse {
   /** params holds all the parameters of this module. */
   params: Params | undefined;
+}
+
+export interface QueryGetDbHeadRequest {}
+
+export interface QueryGetDbHeadResponse {
+  DbHead: DbHead | undefined;
 }
 
 const baseQueryParamsRequest: object = {};
@@ -110,10 +117,111 @@ export const QueryParamsResponse = {
   },
 };
 
+const baseQueryGetDbHeadRequest: object = {};
+
+export const QueryGetDbHeadRequest = {
+  encode(_: QueryGetDbHeadRequest, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetDbHeadRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetDbHeadRequest } as QueryGetDbHeadRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryGetDbHeadRequest {
+    const message = { ...baseQueryGetDbHeadRequest } as QueryGetDbHeadRequest;
+    return message;
+  },
+
+  toJSON(_: QueryGetDbHeadRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<QueryGetDbHeadRequest>): QueryGetDbHeadRequest {
+    const message = { ...baseQueryGetDbHeadRequest } as QueryGetDbHeadRequest;
+    return message;
+  },
+};
+
+const baseQueryGetDbHeadResponse: object = {};
+
+export const QueryGetDbHeadResponse = {
+  encode(
+    message: QueryGetDbHeadResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.DbHead !== undefined) {
+      DbHead.encode(message.DbHead, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetDbHeadResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetDbHeadResponse } as QueryGetDbHeadResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.DbHead = DbHead.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetDbHeadResponse {
+    const message = { ...baseQueryGetDbHeadResponse } as QueryGetDbHeadResponse;
+    if (object.DbHead !== undefined && object.DbHead !== null) {
+      message.DbHead = DbHead.fromJSON(object.DbHead);
+    } else {
+      message.DbHead = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetDbHeadResponse): unknown {
+    const obj: any = {};
+    message.DbHead !== undefined &&
+      (obj.DbHead = message.DbHead ? DbHead.toJSON(message.DbHead) : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetDbHeadResponse>
+  ): QueryGetDbHeadResponse {
+    const message = { ...baseQueryGetDbHeadResponse } as QueryGetDbHeadResponse;
+    if (object.DbHead !== undefined && object.DbHead !== null) {
+      message.DbHead = DbHead.fromPartial(object.DbHead);
+    } else {
+      message.DbHead = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
+  /** Queries a DbHead by index. */
+  DbHead(request: QueryGetDbHeadRequest): Promise<QueryGetDbHeadResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -129,6 +237,18 @@ export class QueryClientImpl implements Query {
       data
     );
     return promise.then((data) => QueryParamsResponse.decode(new Reader(data)));
+  }
+
+  DbHead(request: QueryGetDbHeadRequest): Promise<QueryGetDbHeadResponse> {
+    const data = QueryGetDbHeadRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "hkirat.twitos.twitos.Query",
+      "DbHead",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetDbHeadResponse.decode(new Reader(data))
+    );
   }
 }
 

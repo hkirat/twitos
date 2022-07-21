@@ -20,10 +20,25 @@ export interface RpcStatus {
   details?: ProtobufAny[];
 }
 
+export interface TwitosDbHead {
+  /** @format uint64 */
+  userIndex?: string;
+
+  /** @format uint64 */
+  tweetIndex?: string;
+
+  /** @format uint64 */
+  commentIndex?: string;
+}
+
 /**
  * Params defines the parameters for the module.
  */
 export type TwitosParams = object;
+
+export interface TwitosQueryGetDbHeadResponse {
+  DbHead?: TwitosDbHead;
+}
 
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
@@ -225,10 +240,26 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title twitos/genesis.proto
+ * @title twitos/db_head.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryDbHead
+   * @summary Queries a DbHead by index.
+   * @request GET:/hkirat/twitos/twitos/db_head
+   */
+  queryDbHead = (params: RequestParams = {}) =>
+    this.request<TwitosQueryGetDbHeadResponse, RpcStatus>({
+      path: `/hkirat/twitos/twitos/db_head`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
   /**
    * No description
    *
