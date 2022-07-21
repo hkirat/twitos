@@ -131,6 +131,7 @@ export interface TwitosQueryAllTweetLikeResponse {
 
 export interface TwitosQueryAllTweetResponse {
   Tweet?: TwitosTweet[];
+  user?: TwitosUser[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -175,8 +176,19 @@ export interface TwitosQueryAllWalletToUserIdResponse {
 }
 
 export interface TwitosQueryCommentsResponse {
-  title?: string;
-  body?: string;
+  comment?: TwitosComment[];
+  user?: TwitosUser[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
 }
 
 export interface TwitosQueryGetCommentLikeResponse {
@@ -197,6 +209,7 @@ export interface TwitosQueryGetTweetLikeResponse {
 
 export interface TwitosQueryGetTweetResponse {
   Tweet?: TwitosTweet;
+  user?: TwitosUser;
 }
 
 export interface TwitosQueryGetUserResponse {
@@ -216,8 +229,19 @@ export interface TwitosQueryParamsResponse {
 }
 
 export interface TwitosQueryTweetsResponse {
-  title?: string;
-  body?: string;
+  tweet?: TwitosTweet[];
+  user?: TwitosUser[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
 }
 
 export interface TwitosTweet {
@@ -612,10 +636,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @summary Queries a list of Comments items.
    * @request GET:/hkirat/twitos/twitos/comments/{tweetId}
    */
-  queryComments = (tweetId: string, params: RequestParams = {}) =>
+  queryComments = (
+    tweetId: string,
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
     this.request<TwitosQueryCommentsResponse, RpcStatus>({
       path: `/hkirat/twitos/twitos/comments/${tweetId}`,
       method: "GET",
+      query: query,
       format: "json",
       ...params,
     });
@@ -744,10 +779,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @summary Queries a list of Tweets items.
    * @request GET:/hkirat/twitos/twitos/tweets/{userId}
    */
-  queryTweets = (userId: string, params: RequestParams = {}) =>
+  queryTweets = (
+    userId: string,
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
     this.request<TwitosQueryTweetsResponse, RpcStatus>({
       path: `/hkirat/twitos/twitos/tweets/${userId}`,
       method: "GET",
+      query: query,
       format: "json",
       ...params,
     });

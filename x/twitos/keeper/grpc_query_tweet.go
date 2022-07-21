@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -18,6 +19,7 @@ func (k Keeper) TweetAll(c context.Context, req *types.QueryAllTweetRequest) (*t
 	}
 
 	var tweets []types.Tweet
+	var userIds []uint64
 	ctx := sdk.UnwrapSDKContext(c)
 
 	store := ctx.KVStore(k.storeKey)
@@ -30,6 +32,7 @@ func (k Keeper) TweetAll(c context.Context, req *types.QueryAllTweetRequest) (*t
 		}
 
 		tweets = append(tweets, tweet)
+		userIds = append(userIds, tweet.Owner)
 		return nil
 	})
 
@@ -37,7 +40,9 @@ func (k Keeper) TweetAll(c context.Context, req *types.QueryAllTweetRequest) (*t
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	return &types.QueryAllTweetResponse{Tweet: tweets, Pagination: pageRes}, nil
+	users := k.GetAllFilteredUser(ctx, userIds)
+
+	return &types.QueryAllTweetResponse{Tweet: tweets, Pagination: pageRes, User: users}, nil
 }
 
 func (k Keeper) Tweet(c context.Context, req *types.QueryGetTweetRequest) (*types.QueryGetTweetResponse, error) {
@@ -50,6 +55,11 @@ func (k Keeper) Tweet(c context.Context, req *types.QueryGetTweetRequest) (*type
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
+	user, userFound := k.GetUser(ctx, strconv.Itoa(int(tweet.Owner)))
 
-	return &types.QueryGetTweetResponse{Tweet: tweet}, nil
+	if !userFound {
+		return nil, sdkerrors.ErrKeyNotFound
+	}
+
+	return &types.QueryGetTweetResponse{Tweet: tweet, User: user}, nil
 }

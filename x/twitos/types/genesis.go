@@ -10,7 +10,11 @@ const DefaultIndex uint64 = 1
 // DefaultGenesis returns the default Capability genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		DbHead:             nil,
+		DbHead: &DbHead{
+			UserIndex:    1,
+			TweetIndex:   1,
+			CommentIndex: 1,
+		},
 		UserList:           []User{},
 		WalletToUserIdList: []WalletToUserId{},
 		TweetList:          []Tweet{},

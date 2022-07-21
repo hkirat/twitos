@@ -71,6 +71,7 @@ export interface QueryGetTweetRequest {
 
 export interface QueryGetTweetResponse {
   Tweet: Tweet | undefined;
+  user: User | undefined;
 }
 
 export interface QueryAllTweetRequest {
@@ -79,6 +80,7 @@ export interface QueryAllTweetRequest {
 
 export interface QueryAllTweetResponse {
   Tweet: Tweet[];
+  user: User[];
   pagination: PageResponse | undefined;
 }
 
@@ -135,20 +137,24 @@ export interface QueryAllCommentLikeResponse {
 
 export interface QueryTweetsRequest {
   userId: number;
+  pagination: PageRequest | undefined;
 }
 
 export interface QueryTweetsResponse {
-  title: string;
-  body: string;
+  tweet: Tweet[];
+  user: User[];
+  pagination: PageResponse | undefined;
 }
 
 export interface QueryCommentsRequest {
   tweetId: number;
+  pagination: PageRequest | undefined;
 }
 
 export interface QueryCommentsResponse {
-  title: string;
-  body: string;
+  comment: Comment[];
+  user: User[];
+  pagination: PageResponse | undefined;
 }
 
 const baseQueryParamsRequest: object = {};
@@ -1005,6 +1011,9 @@ export const QueryGetTweetResponse = {
     if (message.Tweet !== undefined) {
       Tweet.encode(message.Tweet, writer.uint32(10).fork()).ldelim();
     }
+    if (message.user !== undefined) {
+      User.encode(message.user, writer.uint32(18).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -1017,6 +1026,9 @@ export const QueryGetTweetResponse = {
       switch (tag >>> 3) {
         case 1:
           message.Tweet = Tweet.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.user = User.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -1033,6 +1045,11 @@ export const QueryGetTweetResponse = {
     } else {
       message.Tweet = undefined;
     }
+    if (object.user !== undefined && object.user !== null) {
+      message.user = User.fromJSON(object.user);
+    } else {
+      message.user = undefined;
+    }
     return message;
   },
 
@@ -1040,6 +1057,8 @@ export const QueryGetTweetResponse = {
     const obj: any = {};
     message.Tweet !== undefined &&
       (obj.Tweet = message.Tweet ? Tweet.toJSON(message.Tweet) : undefined);
+    message.user !== undefined &&
+      (obj.user = message.user ? User.toJSON(message.user) : undefined);
     return obj;
   },
 
@@ -1051,6 +1070,11 @@ export const QueryGetTweetResponse = {
       message.Tweet = Tweet.fromPartial(object.Tweet);
     } else {
       message.Tweet = undefined;
+    }
+    if (object.user !== undefined && object.user !== null) {
+      message.user = User.fromPartial(object.user);
+    } else {
+      message.user = undefined;
     }
     return message;
   },
@@ -1127,10 +1151,13 @@ export const QueryAllTweetResponse = {
     for (const v of message.Tweet) {
       Tweet.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+    for (const v of message.user) {
+      User.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
     if (message.pagination !== undefined) {
       PageResponse.encode(
         message.pagination,
-        writer.uint32(18).fork()
+        writer.uint32(26).fork()
       ).ldelim();
     }
     return writer;
@@ -1141,6 +1168,7 @@ export const QueryAllTweetResponse = {
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseQueryAllTweetResponse } as QueryAllTweetResponse;
     message.Tweet = [];
+    message.user = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1148,6 +1176,9 @@ export const QueryAllTweetResponse = {
           message.Tweet.push(Tweet.decode(reader, reader.uint32()));
           break;
         case 2:
+          message.user.push(User.decode(reader, reader.uint32()));
+          break;
+        case 3:
           message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
         default:
@@ -1161,9 +1192,15 @@ export const QueryAllTweetResponse = {
   fromJSON(object: any): QueryAllTweetResponse {
     const message = { ...baseQueryAllTweetResponse } as QueryAllTweetResponse;
     message.Tweet = [];
+    message.user = [];
     if (object.Tweet !== undefined && object.Tweet !== null) {
       for (const e of object.Tweet) {
         message.Tweet.push(Tweet.fromJSON(e));
+      }
+    }
+    if (object.user !== undefined && object.user !== null) {
+      for (const e of object.user) {
+        message.user.push(User.fromJSON(e));
       }
     }
     if (object.pagination !== undefined && object.pagination !== null) {
@@ -1181,6 +1218,11 @@ export const QueryAllTweetResponse = {
     } else {
       obj.Tweet = [];
     }
+    if (message.user) {
+      obj.user = message.user.map((e) => (e ? User.toJSON(e) : undefined));
+    } else {
+      obj.user = [];
+    }
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
         ? PageResponse.toJSON(message.pagination)
@@ -1193,9 +1235,15 @@ export const QueryAllTweetResponse = {
   ): QueryAllTweetResponse {
     const message = { ...baseQueryAllTweetResponse } as QueryAllTweetResponse;
     message.Tweet = [];
+    message.user = [];
     if (object.Tweet !== undefined && object.Tweet !== null) {
       for (const e of object.Tweet) {
         message.Tweet.push(Tweet.fromPartial(e));
+      }
+    }
+    if (object.user !== undefined && object.user !== null) {
+      for (const e of object.user) {
+        message.user.push(User.fromPartial(e));
       }
     }
     if (object.pagination !== undefined && object.pagination !== null) {
@@ -2138,6 +2186,9 @@ export const QueryTweetsRequest = {
     if (message.userId !== 0) {
       writer.uint32(8).uint64(message.userId);
     }
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -2150,6 +2201,9 @@ export const QueryTweetsRequest = {
       switch (tag >>> 3) {
         case 1:
           message.userId = longToNumber(reader.uint64() as Long);
+          break;
+        case 2:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -2166,12 +2220,21 @@ export const QueryTweetsRequest = {
     } else {
       message.userId = 0;
     }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
     return message;
   },
 
   toJSON(message: QueryTweetsRequest): unknown {
     const obj: any = {};
     message.userId !== undefined && (obj.userId = message.userId);
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
     return obj;
   },
 
@@ -2182,22 +2245,33 @@ export const QueryTweetsRequest = {
     } else {
       message.userId = 0;
     }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
     return message;
   },
 };
 
-const baseQueryTweetsResponse: object = { title: "", body: "" };
+const baseQueryTweetsResponse: object = {};
 
 export const QueryTweetsResponse = {
   encode(
     message: QueryTweetsResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.title !== "") {
-      writer.uint32(10).string(message.title);
+    for (const v of message.tweet) {
+      Tweet.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.body !== "") {
-      writer.uint32(18).string(message.body);
+    for (const v of message.user) {
+      User.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(26).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -2206,14 +2280,19 @@ export const QueryTweetsResponse = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseQueryTweetsResponse } as QueryTweetsResponse;
+    message.tweet = [];
+    message.user = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.title = reader.string();
+          message.tweet.push(Tweet.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.body = reader.string();
+          message.user.push(User.decode(reader, reader.uint32()));
+          break;
+        case 3:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -2225,37 +2304,63 @@ export const QueryTweetsResponse = {
 
   fromJSON(object: any): QueryTweetsResponse {
     const message = { ...baseQueryTweetsResponse } as QueryTweetsResponse;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = String(object.title);
-    } else {
-      message.title = "";
+    message.tweet = [];
+    message.user = [];
+    if (object.tweet !== undefined && object.tweet !== null) {
+      for (const e of object.tweet) {
+        message.tweet.push(Tweet.fromJSON(e));
+      }
     }
-    if (object.body !== undefined && object.body !== null) {
-      message.body = String(object.body);
+    if (object.user !== undefined && object.user !== null) {
+      for (const e of object.user) {
+        message.user.push(User.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
     } else {
-      message.body = "";
+      message.pagination = undefined;
     }
     return message;
   },
 
   toJSON(message: QueryTweetsResponse): unknown {
     const obj: any = {};
-    message.title !== undefined && (obj.title = message.title);
-    message.body !== undefined && (obj.body = message.body);
+    if (message.tweet) {
+      obj.tweet = message.tweet.map((e) => (e ? Tweet.toJSON(e) : undefined));
+    } else {
+      obj.tweet = [];
+    }
+    if (message.user) {
+      obj.user = message.user.map((e) => (e ? User.toJSON(e) : undefined));
+    } else {
+      obj.user = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<QueryTweetsResponse>): QueryTweetsResponse {
     const message = { ...baseQueryTweetsResponse } as QueryTweetsResponse;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
+    message.tweet = [];
+    message.user = [];
+    if (object.tweet !== undefined && object.tweet !== null) {
+      for (const e of object.tweet) {
+        message.tweet.push(Tweet.fromPartial(e));
+      }
     }
-    if (object.body !== undefined && object.body !== null) {
-      message.body = object.body;
+    if (object.user !== undefined && object.user !== null) {
+      for (const e of object.user) {
+        message.user.push(User.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
     } else {
-      message.body = "";
+      message.pagination = undefined;
     }
     return message;
   },
@@ -2271,6 +2376,9 @@ export const QueryCommentsRequest = {
     if (message.tweetId !== 0) {
       writer.uint32(8).uint64(message.tweetId);
     }
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -2283,6 +2391,9 @@ export const QueryCommentsRequest = {
       switch (tag >>> 3) {
         case 1:
           message.tweetId = longToNumber(reader.uint64() as Long);
+          break;
+        case 2:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -2299,12 +2410,21 @@ export const QueryCommentsRequest = {
     } else {
       message.tweetId = 0;
     }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
     return message;
   },
 
   toJSON(message: QueryCommentsRequest): unknown {
     const obj: any = {};
     message.tweetId !== undefined && (obj.tweetId = message.tweetId);
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
     return obj;
   },
 
@@ -2315,22 +2435,33 @@ export const QueryCommentsRequest = {
     } else {
       message.tweetId = 0;
     }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
     return message;
   },
 };
 
-const baseQueryCommentsResponse: object = { title: "", body: "" };
+const baseQueryCommentsResponse: object = {};
 
 export const QueryCommentsResponse = {
   encode(
     message: QueryCommentsResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.title !== "") {
-      writer.uint32(10).string(message.title);
+    for (const v of message.comment) {
+      Comment.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.body !== "") {
-      writer.uint32(18).string(message.body);
+    for (const v of message.user) {
+      User.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(26).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -2339,14 +2470,19 @@ export const QueryCommentsResponse = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseQueryCommentsResponse } as QueryCommentsResponse;
+    message.comment = [];
+    message.user = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.title = reader.string();
+          message.comment.push(Comment.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.body = reader.string();
+          message.user.push(User.decode(reader, reader.uint32()));
+          break;
+        case 3:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -2358,23 +2494,44 @@ export const QueryCommentsResponse = {
 
   fromJSON(object: any): QueryCommentsResponse {
     const message = { ...baseQueryCommentsResponse } as QueryCommentsResponse;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = String(object.title);
-    } else {
-      message.title = "";
+    message.comment = [];
+    message.user = [];
+    if (object.comment !== undefined && object.comment !== null) {
+      for (const e of object.comment) {
+        message.comment.push(Comment.fromJSON(e));
+      }
     }
-    if (object.body !== undefined && object.body !== null) {
-      message.body = String(object.body);
+    if (object.user !== undefined && object.user !== null) {
+      for (const e of object.user) {
+        message.user.push(User.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
     } else {
-      message.body = "";
+      message.pagination = undefined;
     }
     return message;
   },
 
   toJSON(message: QueryCommentsResponse): unknown {
     const obj: any = {};
-    message.title !== undefined && (obj.title = message.title);
-    message.body !== undefined && (obj.body = message.body);
+    if (message.comment) {
+      obj.comment = message.comment.map((e) =>
+        e ? Comment.toJSON(e) : undefined
+      );
+    } else {
+      obj.comment = [];
+    }
+    if (message.user) {
+      obj.user = message.user.map((e) => (e ? User.toJSON(e) : undefined));
+    } else {
+      obj.user = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
     return obj;
   },
 
@@ -2382,15 +2539,22 @@ export const QueryCommentsResponse = {
     object: DeepPartial<QueryCommentsResponse>
   ): QueryCommentsResponse {
     const message = { ...baseQueryCommentsResponse } as QueryCommentsResponse;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
+    message.comment = [];
+    message.user = [];
+    if (object.comment !== undefined && object.comment !== null) {
+      for (const e of object.comment) {
+        message.comment.push(Comment.fromPartial(e));
+      }
     }
-    if (object.body !== undefined && object.body !== null) {
-      message.body = object.body;
+    if (object.user !== undefined && object.user !== null) {
+      for (const e of object.user) {
+        message.user.push(User.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
     } else {
-      message.body = "";
+      message.pagination = undefined;
     }
     return message;
   },

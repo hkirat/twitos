@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/hkirat/twitos/x/twitos/types"
@@ -9,9 +10,22 @@ import (
 
 func (k msgServer) CreateTweet(goCtx context.Context, msg *types.MsgCreateTweet) (*types.MsgCreateTweetResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+	userMapping, existingUserFound := k.GetWalletToUserId(ctx, msg.Creator)
 
-	// TODO: Handling the message
-	_ = ctx
+	if !existingUserFound {
+		return nil, types.ErrUserDoesntExist
+	}
 
-	return &types.MsgCreateTweetResponse{}, nil
+	newTweet := types.Tweet{
+		Owner:       userMapping.UserId,
+		Description: msg.Description,
+		Likes:       0,
+		Comments:    0,
+	}
+
+	tweetId := k.Keeper.AppendTweet(ctx, newTweet)
+
+	return &types.MsgCreateTweetResponse{
+		IdValue: strconv.Itoa(int(tweetId)),
+	}, nil
 }
