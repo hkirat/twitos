@@ -20,6 +20,24 @@ export interface RpcStatus {
   details?: ProtobufAny[];
 }
 
+export interface TwitosComment {
+  /** @format uint64 */
+  id?: string;
+
+  /** @format uint64 */
+  tweetId?: string;
+  description?: string;
+
+  /** @format uint64 */
+  likes?: string;
+
+  /** @format uint64 */
+  timestamp?: string;
+
+  /** @format uint64 */
+  owner?: string;
+}
+
 export interface TwitosDbHead {
   /** @format uint64 */
   userIndex?: string;
@@ -35,6 +53,21 @@ export interface TwitosDbHead {
  * Params defines the parameters for the module.
  */
 export type TwitosParams = object;
+
+export interface TwitosQueryAllCommentResponse {
+  Comment?: TwitosComment[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
 
 export interface TwitosQueryAllTweetLikeResponse {
   tweetLike?: TwitosTweetLike[];
@@ -94,6 +127,10 @@ export interface TwitosQueryAllWalletToUserIdResponse {
    *  }
    */
   pagination?: V1Beta1PageResponse;
+}
+
+export interface TwitosQueryGetCommentResponse {
+  Comment?: TwitosComment;
 }
 
 export interface TwitosQueryGetDbHeadResponse {
@@ -420,10 +457,52 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title twitos/db_head.proto
+ * @title twitos/comment.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryCommentAll
+   * @summary Queries a list of Comment items.
+   * @request GET:/hkirat/twitos/twitos/comment
+   */
+  queryCommentAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<TwitosQueryAllCommentResponse, RpcStatus>({
+      path: `/hkirat/twitos/twitos/comment`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryComment
+   * @summary Queries a Comment by id.
+   * @request GET:/hkirat/twitos/twitos/comment/{id}
+   */
+  queryComment = (id: string, params: RequestParams = {}) =>
+    this.request<TwitosQueryGetCommentResponse, RpcStatus>({
+      path: `/hkirat/twitos/twitos/comment/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
   /**
    * No description
    *

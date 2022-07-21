@@ -52,6 +52,15 @@ func TestGenesis(t *testing.T) {
 				Index: "1",
 			},
 		},
+		CommentList: []types.Comment{
+			{
+				Id: 0,
+			},
+			{
+				Id: 1,
+			},
+		},
+		CommentCount: 2,
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -69,5 +78,7 @@ func TestGenesis(t *testing.T) {
 	require.ElementsMatch(t, genesisState.TweetList, got.TweetList)
 	require.Equal(t, genesisState.TweetCount, got.TweetCount)
 	require.ElementsMatch(t, genesisState.TweetLikeList, got.TweetLikeList)
+	require.ElementsMatch(t, genesisState.CommentList, got.CommentList)
+	require.Equal(t, genesisState.CommentCount, got.CommentCount)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

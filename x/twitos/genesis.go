@@ -32,6 +32,13 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for _, elem := range genState.TweetLikeList {
 		k.SetTweetLike(ctx, elem)
 	}
+	// Set all the comment
+	for _, elem := range genState.CommentList {
+		k.SetComment(ctx, elem)
+	}
+
+	// Set comment count
+	k.SetCommentCount(ctx, genState.CommentCount)
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -51,6 +58,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.TweetList = k.GetAllTweet(ctx)
 	genesis.TweetCount = k.GetTweetCount(ctx)
 	genesis.TweetLikeList = k.GetAllTweetLike(ctx)
+	genesis.CommentList = k.GetAllComment(ctx)
+	genesis.CommentCount = k.GetCommentCount(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

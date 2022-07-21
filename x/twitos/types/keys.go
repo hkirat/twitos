@@ -29,3 +29,8 @@ const (
 	TweetKey      = "Tweet-value-"
 	TweetCountKey = "Tweet-count-"
 )
+
+const (
+	CommentKey      = "Comment-value-"
+	CommentCountKey = "Comment-count-"
+)

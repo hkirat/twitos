@@ -60,6 +60,15 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "1",
 					},
 				},
+				CommentList: []types.Comment{
+					{
+						Id: 0,
+					},
+					{
+						Id: 1,
+					},
+				},
+				CommentCount: 2,
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -129,6 +138,32 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "0",
 					},
 				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated comment",
+			genState: &types.GenesisState{
+				CommentList: []types.Comment{
+					{
+						Id: 0,
+					},
+					{
+						Id: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "invalid comment count",
+			genState: &types.GenesisState{
+				CommentList: []types.Comment{
+					{
+						Id: 1,
+					},
+				},
+				CommentCount: 0,
 			},
 			valid: false,
 		},
