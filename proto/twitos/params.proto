@@ -1,0 +1,12 @@
+syntax = "proto3";
+package hkirat.twitos.twitos;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/hkirat/twitos/x/twitos/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  
+}
