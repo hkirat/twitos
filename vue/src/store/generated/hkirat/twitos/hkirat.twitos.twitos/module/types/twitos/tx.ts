@@ -12,6 +12,15 @@ export interface MsgCreateUserResponse {
   idValue: string;
 }
 
+export interface MsgCreateTweet {
+  creator: string;
+  description: string;
+}
+
+export interface MsgCreateTweetResponse {
+  idValue: string;
+}
+
 const baseMsgCreateUser: object = { creator: "", name: "" };
 
 export const MsgCreateUser = {
@@ -144,10 +153,144 @@ export const MsgCreateUserResponse = {
   },
 };
 
+const baseMsgCreateTweet: object = { creator: "", description: "" };
+
+export const MsgCreateTweet = {
+  encode(message: MsgCreateTweet, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateTweet {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateTweet } as MsgCreateTweet;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.description = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateTweet {
+    const message = { ...baseMsgCreateTweet } as MsgCreateTweet;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = String(object.description);
+    } else {
+      message.description = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateTweet): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.description !== undefined &&
+      (obj.description = message.description);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateTweet>): MsgCreateTweet {
+    const message = { ...baseMsgCreateTweet } as MsgCreateTweet;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    } else {
+      message.description = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateTweetResponse: object = { idValue: "" };
+
+export const MsgCreateTweetResponse = {
+  encode(
+    message: MsgCreateTweetResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.idValue !== "") {
+      writer.uint32(10).string(message.idValue);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateTweetResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateTweetResponse } as MsgCreateTweetResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.idValue = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateTweetResponse {
+    const message = { ...baseMsgCreateTweetResponse } as MsgCreateTweetResponse;
+    if (object.idValue !== undefined && object.idValue !== null) {
+      message.idValue = String(object.idValue);
+    } else {
+      message.idValue = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateTweetResponse): unknown {
+    const obj: any = {};
+    message.idValue !== undefined && (obj.idValue = message.idValue);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgCreateTweetResponse>
+  ): MsgCreateTweetResponse {
+    const message = { ...baseMsgCreateTweetResponse } as MsgCreateTweetResponse;
+    if (object.idValue !== undefined && object.idValue !== null) {
+      message.idValue = object.idValue;
+    } else {
+      message.idValue = "";
+    }
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   CreateUser(request: MsgCreateUser): Promise<MsgCreateUserResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateTweet(request: MsgCreateTweet): Promise<MsgCreateTweetResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -164,6 +307,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCreateUserResponse.decode(new Reader(data))
+    );
+  }
+
+  CreateTweet(request: MsgCreateTweet): Promise<MsgCreateTweetResponse> {
+    const data = MsgCreateTweet.encode(request).finish();
+    const promise = this.rpc.request(
+      "hkirat.twitos.twitos.Msg",
+      "CreateTweet",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateTweetResponse.decode(new Reader(data))
     );
   }
 }

@@ -8,6 +8,7 @@ option go_package = "github.com/hkirat/twitos/x/twitos/types";
 // Msg defines the Msg service.
 service Msg {
       rpc CreateUser(MsgCreateUser) returns (MsgCreateUserResponse);
+  rpc CreateTweet(MsgCreateTweet) returns (MsgCreateTweetResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -17,6 +18,15 @@ message MsgCreateUser {
 }
 
 message MsgCreateUserResponse {
+  string idValue = 1;
+}
+
+message MsgCreateTweet {
+  string creator = 1;
+  string description = 2;
+}
+
+message MsgCreateTweetResponse {
   string idValue = 1;
 }
 

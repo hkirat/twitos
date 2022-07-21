@@ -123,15 +123,113 @@ func (m *MsgCreateUserResponse) GetIdValue() string {
 	return ""
 }
 
+type MsgCreateTweet struct {
+	Creator     string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+}
+
+func (m *MsgCreateTweet) Reset()         { *m = MsgCreateTweet{} }
+func (m *MsgCreateTweet) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateTweet) ProtoMessage()    {}
+func (*MsgCreateTweet) Descriptor() ([]byte, []int) {
+	return fileDescriptor_544b8e0727aa1ad5, []int{2}
+}
+func (m *MsgCreateTweet) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreateTweet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreateTweet.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreateTweet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateTweet.Merge(m, src)
+}
+func (m *MsgCreateTweet) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreateTweet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateTweet.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreateTweet proto.InternalMessageInfo
+
+func (m *MsgCreateTweet) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgCreateTweet) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+type MsgCreateTweetResponse struct {
+	IdValue string `protobuf:"bytes,1,opt,name=idValue,proto3" json:"idValue,omitempty"`
+}
+
+func (m *MsgCreateTweetResponse) Reset()         { *m = MsgCreateTweetResponse{} }
+func (m *MsgCreateTweetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateTweetResponse) ProtoMessage()    {}
+func (*MsgCreateTweetResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_544b8e0727aa1ad5, []int{3}
+}
+func (m *MsgCreateTweetResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreateTweetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreateTweetResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreateTweetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateTweetResponse.Merge(m, src)
+}
+func (m *MsgCreateTweetResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreateTweetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateTweetResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreateTweetResponse proto.InternalMessageInfo
+
+func (m *MsgCreateTweetResponse) GetIdValue() string {
+	if m != nil {
+		return m.IdValue
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*MsgCreateUser)(nil), "hkirat.twitos.twitos.MsgCreateUser")
 	proto.RegisterType((*MsgCreateUserResponse)(nil), "hkirat.twitos.twitos.MsgCreateUserResponse")
+	proto.RegisterType((*MsgCreateTweet)(nil), "hkirat.twitos.twitos.MsgCreateTweet")
+	proto.RegisterType((*MsgCreateTweetResponse)(nil), "hkirat.twitos.twitos.MsgCreateTweetResponse")
 }
 
 func init() { proto.RegisterFile("twitos/tx.proto", fileDescriptor_544b8e0727aa1ad5) }
 
 var fileDescriptor_544b8e0727aa1ad5 = []byte{
-	// 216 bytes of a gzipped FileDescriptorProto
+	// 275 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2f, 0x29, 0xcf, 0x2c,
 	0xc9, 0x2f, 0xd6, 0x2f, 0xa9, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0xc9, 0xc8, 0xce,
 	0x2c, 0x4a, 0x2c, 0xd1, 0x83, 0x88, 0x43, 0x29, 0x25, 0x5b, 0x2e, 0x5e, 0xdf, 0xe2, 0x74, 0xe7,
@@ -139,13 +237,17 @@ var fileDescriptor_544b8e0727aa1ad5 = []byte{
 	0xbf, 0x48, 0x82, 0x51, 0x81, 0x51, 0x83, 0x33, 0x08, 0xc6, 0x15, 0x12, 0xe2, 0x62, 0xc9, 0x4b,
 	0xcc, 0x4d, 0x95, 0x60, 0x02, 0x0b, 0x83, 0xd9, 0x4a, 0x86, 0x5c, 0xa2, 0x28, 0xda, 0x83, 0x52,
 	0x8b, 0x0b, 0xf2, 0xf3, 0x8a, 0x53, 0x41, 0xc6, 0x64, 0xa6, 0x84, 0x25, 0xe6, 0x94, 0xa6, 0xc2,
-	0x8c, 0x81, 0x72, 0x8d, 0x52, 0xb9, 0x98, 0x7d, 0x8b, 0xd3, 0x85, 0xe2, 0xb8, 0xb8, 0x90, 0x6c,
-	0x55, 0xd6, 0xc3, 0xe6, 0x3a, 0x3d, 0x14, 0xb3, 0xa5, 0xb4, 0x89, 0x50, 0x04, 0x73, 0x80, 0x93,
-	0xe3, 0x89, 0x47, 0x72, 0x8c, 0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7, 0x38, 0xe1, 0xb1,
-	0x1c, 0xc3, 0x85, 0xc7, 0x72, 0x0c, 0x37, 0x1e, 0xcb, 0x31, 0x44, 0xa9, 0xa7, 0x67, 0x96, 0x64,
-	0x94, 0x26, 0xe9, 0x25, 0xe7, 0xe7, 0xea, 0x43, 0x0c, 0xd4, 0x87, 0x86, 0x55, 0x05, 0x8c, 0x51,
-	0x52, 0x59, 0x90, 0x5a, 0x9c, 0xc4, 0x06, 0x0e, 0x38, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff,
-	0x4d, 0xcf, 0xcd, 0xab, 0x4b, 0x01, 0x00, 0x00,
+	0x8c, 0x81, 0x72, 0x95, 0x7c, 0xb8, 0xf8, 0xe0, 0x5a, 0x42, 0xca, 0x53, 0x53, 0x4b, 0xf0, 0x58,
+	0xa9, 0xc0, 0xc5, 0x9d, 0x92, 0x5a, 0x9c, 0x5c, 0x94, 0x59, 0x50, 0x92, 0x99, 0x9f, 0x07, 0xb5,
+	0x19, 0x59, 0x48, 0xc9, 0x88, 0x4b, 0x0c, 0xd5, 0x34, 0xc2, 0x2e, 0x30, 0x3a, 0xc1, 0xc8, 0xc5,
+	0xec, 0x5b, 0x9c, 0x2e, 0x14, 0xc7, 0xc5, 0x85, 0xe4, 0x71, 0x65, 0x3d, 0x6c, 0x01, 0xa4, 0x87,
+	0xe2, 0x3d, 0x29, 0x6d, 0x22, 0x14, 0xc1, 0x5d, 0x90, 0xc8, 0xc5, 0x8d, 0xec, 0x4d, 0x15, 0x02,
+	0x7a, 0xc1, 0xaa, 0xa4, 0x74, 0x88, 0x51, 0x05, 0xb3, 0xc2, 0xc9, 0xf1, 0xc4, 0x23, 0x39, 0xc6,
+	0x0b, 0x8f, 0xe4, 0x18, 0x1f, 0x3c, 0x92, 0x63, 0x9c, 0xf0, 0x58, 0x8e, 0xe1, 0xc2, 0x63, 0x39,
+	0x86, 0x1b, 0x8f, 0xe5, 0x18, 0xa2, 0xd4, 0xd3, 0x33, 0x4b, 0x32, 0x4a, 0x93, 0xf4, 0x92, 0xf3,
+	0x73, 0xf5, 0x21, 0x26, 0xea, 0x43, 0x53, 0x44, 0x05, 0x8c, 0x51, 0x52, 0x59, 0x90, 0x5a, 0x9c,
+	0xc4, 0x06, 0x4e, 0x1e, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0xec, 0xab, 0xbd, 0xcc, 0x31,
+	0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -161,6 +263,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
 	CreateUser(ctx context.Context, in *MsgCreateUser, opts ...grpc.CallOption) (*MsgCreateUserResponse, error)
+	CreateTweet(ctx context.Context, in *MsgCreateTweet, opts ...grpc.CallOption) (*MsgCreateTweetResponse, error)
 }
 
 type msgClient struct {
@@ -180,9 +283,19 @@ func (c *msgClient) CreateUser(ctx context.Context, in *MsgCreateUser, opts ...g
 	return out, nil
 }
 
+func (c *msgClient) CreateTweet(ctx context.Context, in *MsgCreateTweet, opts ...grpc.CallOption) (*MsgCreateTweetResponse, error) {
+	out := new(MsgCreateTweetResponse)
+	err := c.cc.Invoke(ctx, "/hkirat.twitos.twitos.Msg/CreateTweet", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	CreateUser(context.Context, *MsgCreateUser) (*MsgCreateUserResponse, error)
+	CreateTweet(context.Context, *MsgCreateTweet) (*MsgCreateTweetResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -191,6 +304,9 @@ type UnimplementedMsgServer struct {
 
 func (*UnimplementedMsgServer) CreateUser(ctx context.Context, req *MsgCreateUser) (*MsgCreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+}
+func (*UnimplementedMsgServer) CreateTweet(ctx context.Context, req *MsgCreateTweet) (*MsgCreateTweetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateTweet not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -215,6 +331,24 @@ func _Msg_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_CreateTweet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCreateTweet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CreateTweet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/hkirat.twitos.twitos.Msg/CreateTweet",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CreateTweet(ctx, req.(*MsgCreateTweet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "hkirat.twitos.twitos.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -222,6 +356,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateUser",
 			Handler:    _Msg_CreateUser_Handler,
+		},
+		{
+			MethodName: "CreateTweet",
+			Handler:    _Msg_CreateTweet_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -295,6 +433,73 @@ func (m *MsgCreateUserResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgCreateTweet) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreateTweet) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreateTweet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Description) > 0 {
+		i -= len(m.Description)
+		copy(dAtA[i:], m.Description)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Description)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgCreateTweetResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreateTweetResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreateTweetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.IdValue) > 0 {
+		i -= len(m.IdValue)
+		copy(dAtA[i:], m.IdValue)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.IdValue)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -324,6 +529,36 @@ func (m *MsgCreateUser) Size() (n int) {
 }
 
 func (m *MsgCreateUserResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.IdValue)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgCreateTweet) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgCreateTweetResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -483,6 +718,202 @@ func (m *MsgCreateUserResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgCreateUserResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IdValue", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.IdValue = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgCreateTweet) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreateTweet: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreateTweet: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgCreateTweetResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreateTweetResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreateTweetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:

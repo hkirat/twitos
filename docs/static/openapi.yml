@@ -48279,6 +48279,11 @@ definitions:
       commentIndex:
         type: string
         format: uint64
+  hkirat.twitos.twitos.MsgCreateTweetResponse:
+    type: object
+    properties:
+      idValue:
+        type: string
   hkirat.twitos.twitos.MsgCreateUserResponse:
     type: object
     properties:
