@@ -20114,6 +20114,46 @@ paths:
           type: string
       tags:
         - Query
+  '/hkirat/twitos/twitos/comments/{tweetId}':
+    get:
+      summary: Queries a list of Comments items.
+      operationId: HkiratTwitosTwitosComments
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              body:
+                type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: tweetId
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   /hkirat/twitos/twitos/db_head:
     get:
       summary: Queries a DbHead by index.
@@ -48606,6 +48646,13 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
+  hkirat.twitos.twitos.QueryCommentsResponse:
+    type: object
+    properties:
+      title:
+        type: string
+      body:
+        type: string
   hkirat.twitos.twitos.QueryGetCommentLikeResponse:
     type: object
     properties:

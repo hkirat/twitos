@@ -91,6 +91,11 @@ service Query {
 		option (google.api.http).get = "/hkirat/twitos/twitos/tweets/{userId}";
 	}
 
+// Queries a list of Comments items.
+	rpc Comments(QueryCommentsRequest) returns (QueryCommentsResponse) {
+		option (google.api.http).get = "/hkirat/twitos/twitos/comments/{tweetId}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -219,6 +224,15 @@ message QueryTweetsRequest {
 }
 
 message QueryTweetsResponse {
+  string title = 1;
+  string body = 2;
+}
+
+message QueryCommentsRequest {
+  uint64 tweetId = 1;
+}
+
+message QueryCommentsResponse {
   string title = 1;
   string body = 2;
 }

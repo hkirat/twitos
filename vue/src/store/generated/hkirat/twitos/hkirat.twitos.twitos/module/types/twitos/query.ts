@@ -142,6 +142,15 @@ export interface QueryTweetsResponse {
   body: string;
 }
 
+export interface QueryCommentsRequest {
+  tweetId: number;
+}
+
+export interface QueryCommentsResponse {
+  title: string;
+  body: string;
+}
+
 const baseQueryParamsRequest: object = {};
 
 export const QueryParamsRequest = {
@@ -2252,6 +2261,141 @@ export const QueryTweetsResponse = {
   },
 };
 
+const baseQueryCommentsRequest: object = { tweetId: 0 };
+
+export const QueryCommentsRequest = {
+  encode(
+    message: QueryCommentsRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.tweetId !== 0) {
+      writer.uint32(8).uint64(message.tweetId);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryCommentsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryCommentsRequest } as QueryCommentsRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.tweetId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryCommentsRequest {
+    const message = { ...baseQueryCommentsRequest } as QueryCommentsRequest;
+    if (object.tweetId !== undefined && object.tweetId !== null) {
+      message.tweetId = Number(object.tweetId);
+    } else {
+      message.tweetId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryCommentsRequest): unknown {
+    const obj: any = {};
+    message.tweetId !== undefined && (obj.tweetId = message.tweetId);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<QueryCommentsRequest>): QueryCommentsRequest {
+    const message = { ...baseQueryCommentsRequest } as QueryCommentsRequest;
+    if (object.tweetId !== undefined && object.tweetId !== null) {
+      message.tweetId = object.tweetId;
+    } else {
+      message.tweetId = 0;
+    }
+    return message;
+  },
+};
+
+const baseQueryCommentsResponse: object = { title: "", body: "" };
+
+export const QueryCommentsResponse = {
+  encode(
+    message: QueryCommentsResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.title !== "") {
+      writer.uint32(10).string(message.title);
+    }
+    if (message.body !== "") {
+      writer.uint32(18).string(message.body);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryCommentsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryCommentsResponse } as QueryCommentsResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.title = reader.string();
+          break;
+        case 2:
+          message.body = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryCommentsResponse {
+    const message = { ...baseQueryCommentsResponse } as QueryCommentsResponse;
+    if (object.title !== undefined && object.title !== null) {
+      message.title = String(object.title);
+    } else {
+      message.title = "";
+    }
+    if (object.body !== undefined && object.body !== null) {
+      message.body = String(object.body);
+    } else {
+      message.body = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryCommentsResponse): unknown {
+    const obj: any = {};
+    message.title !== undefined && (obj.title = message.title);
+    message.body !== undefined && (obj.body = message.body);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryCommentsResponse>
+  ): QueryCommentsResponse {
+    const message = { ...baseQueryCommentsResponse } as QueryCommentsResponse;
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    } else {
+      message.title = "";
+    }
+    if (object.body !== undefined && object.body !== null) {
+      message.body = object.body;
+    } else {
+      message.body = "";
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -2296,6 +2440,8 @@ export interface Query {
   ): Promise<QueryAllCommentLikeResponse>;
   /** Queries a list of Tweets items. */
   Tweets(request: QueryTweetsRequest): Promise<QueryTweetsResponse>;
+  /** Queries a list of Comments items. */
+  Comments(request: QueryCommentsRequest): Promise<QueryCommentsResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -2491,6 +2637,18 @@ export class QueryClientImpl implements Query {
       data
     );
     return promise.then((data) => QueryTweetsResponse.decode(new Reader(data)));
+  }
+
+  Comments(request: QueryCommentsRequest): Promise<QueryCommentsResponse> {
+    const data = QueryCommentsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "hkirat.twitos.twitos.Query",
+      "Comments",
+      data
+    );
+    return promise.then((data) =>
+      QueryCommentsResponse.decode(new Reader(data))
+    );
   }
 }
 

@@ -174,6 +174,11 @@ export interface TwitosQueryAllWalletToUserIdResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface TwitosQueryCommentsResponse {
+  title?: string;
+  body?: string;
+}
+
 export interface TwitosQueryGetCommentLikeResponse {
   commentLike?: TwitosCommentLike;
 }
@@ -594,6 +599,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryCommentLike = (index: string, params: RequestParams = {}) =>
     this.request<TwitosQueryGetCommentLikeResponse, RpcStatus>({
       path: `/hkirat/twitos/twitos/comment_like/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryComments
+   * @summary Queries a list of Comments items.
+   * @request GET:/hkirat/twitos/twitos/comments/{tweetId}
+   */
+  queryComments = (tweetId: string, params: RequestParams = {}) =>
+    this.request<TwitosQueryCommentsResponse, RpcStatus>({
+      path: `/hkirat/twitos/twitos/comments/${tweetId}`,
       method: "GET",
       format: "json",
       ...params,
