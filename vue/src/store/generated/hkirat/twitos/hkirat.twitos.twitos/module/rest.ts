@@ -59,6 +59,10 @@ export interface TwitosDbHead {
   commentIndex?: string;
 }
 
+export interface TwitosMsgCreateCommentResponse {
+  idValue?: string;
+}
+
 export interface TwitosMsgCreateTweetResponse {
   idValue?: string;
 }

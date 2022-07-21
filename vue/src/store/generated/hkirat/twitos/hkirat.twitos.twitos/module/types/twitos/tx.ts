@@ -32,6 +32,16 @@ export interface MsgLikeTweetResponse {
   done: boolean;
 }
 
+export interface MsgCreateComment {
+  creator: string;
+  tweetId: number;
+  description: string;
+}
+
+export interface MsgCreateCommentResponse {
+  idValue: string;
+}
+
 const baseMsgCreateUser: object = { creator: "", name: "" };
 
 export const MsgCreateUser = {
@@ -444,12 +454,176 @@ export const MsgLikeTweetResponse = {
   },
 };
 
+const baseMsgCreateComment: object = {
+  creator: "",
+  tweetId: 0,
+  description: "",
+};
+
+export const MsgCreateComment = {
+  encode(message: MsgCreateComment, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.tweetId !== 0) {
+      writer.uint32(16).uint64(message.tweetId);
+    }
+    if (message.description !== "") {
+      writer.uint32(26).string(message.description);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateComment {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateComment } as MsgCreateComment;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.tweetId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.description = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateComment {
+    const message = { ...baseMsgCreateComment } as MsgCreateComment;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.tweetId !== undefined && object.tweetId !== null) {
+      message.tweetId = Number(object.tweetId);
+    } else {
+      message.tweetId = 0;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = String(object.description);
+    } else {
+      message.description = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateComment): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.tweetId !== undefined && (obj.tweetId = message.tweetId);
+    message.description !== undefined &&
+      (obj.description = message.description);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateComment>): MsgCreateComment {
+    const message = { ...baseMsgCreateComment } as MsgCreateComment;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.tweetId !== undefined && object.tweetId !== null) {
+      message.tweetId = object.tweetId;
+    } else {
+      message.tweetId = 0;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    } else {
+      message.description = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateCommentResponse: object = { idValue: "" };
+
+export const MsgCreateCommentResponse = {
+  encode(
+    message: MsgCreateCommentResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.idValue !== "") {
+      writer.uint32(10).string(message.idValue);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCreateCommentResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCreateCommentResponse,
+    } as MsgCreateCommentResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.idValue = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateCommentResponse {
+    const message = {
+      ...baseMsgCreateCommentResponse,
+    } as MsgCreateCommentResponse;
+    if (object.idValue !== undefined && object.idValue !== null) {
+      message.idValue = String(object.idValue);
+    } else {
+      message.idValue = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateCommentResponse): unknown {
+    const obj: any = {};
+    message.idValue !== undefined && (obj.idValue = message.idValue);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgCreateCommentResponse>
+  ): MsgCreateCommentResponse {
+    const message = {
+      ...baseMsgCreateCommentResponse,
+    } as MsgCreateCommentResponse;
+    if (object.idValue !== undefined && object.idValue !== null) {
+      message.idValue = object.idValue;
+    } else {
+      message.idValue = "";
+    }
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   CreateUser(request: MsgCreateUser): Promise<MsgCreateUserResponse>;
   CreateTweet(request: MsgCreateTweet): Promise<MsgCreateTweetResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   LikeTweet(request: MsgLikeTweet): Promise<MsgLikeTweetResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateComment(request: MsgCreateComment): Promise<MsgCreateCommentResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -490,6 +664,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgLikeTweetResponse.decode(new Reader(data))
+    );
+  }
+
+  CreateComment(request: MsgCreateComment): Promise<MsgCreateCommentResponse> {
+    const data = MsgCreateComment.encode(request).finish();
+    const promise = this.rpc.request(
+      "hkirat.twitos.twitos.Msg",
+      "CreateComment",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateCommentResponse.decode(new Reader(data))
     );
   }
 }
