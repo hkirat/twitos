@@ -32,6 +32,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgCreateTweet int = 100
 
+	opWeightMsgLikeTweet = "op_weight_msg_like_tweet"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgLikeTweet int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -86,6 +90,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgCreateTweet,
 		twitossimulation.SimulateMsgCreateTweet(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgLikeTweet int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgLikeTweet, &weightMsgLikeTweet, nil,
+		func(_ *rand.Rand) {
+			weightMsgLikeTweet = defaultWeightMsgLikeTweet
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgLikeTweet,
+		twitossimulation.SimulateMsgLikeTweet(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

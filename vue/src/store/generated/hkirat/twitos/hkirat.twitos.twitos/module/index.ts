@@ -4,13 +4,15 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgCreateTweet } from "./types/twitos/tx";
 import { MsgCreateUser } from "./types/twitos/tx";
+import { MsgLikeTweet } from "./types/twitos/tx";
+import { MsgCreateTweet } from "./types/twitos/tx";
 
 
 const types = [
-  ["/hkirat.twitos.twitos.MsgCreateTweet", MsgCreateTweet],
   ["/hkirat.twitos.twitos.MsgCreateUser", MsgCreateUser],
+  ["/hkirat.twitos.twitos.MsgLikeTweet", MsgLikeTweet],
+  ["/hkirat.twitos.twitos.MsgCreateTweet", MsgCreateTweet],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -43,8 +45,9 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgCreateTweet: (data: MsgCreateTweet): EncodeObject => ({ typeUrl: "/hkirat.twitos.twitos.MsgCreateTweet", value: MsgCreateTweet.fromPartial( data ) }),
     msgCreateUser: (data: MsgCreateUser): EncodeObject => ({ typeUrl: "/hkirat.twitos.twitos.MsgCreateUser", value: MsgCreateUser.fromPartial( data ) }),
+    msgLikeTweet: (data: MsgLikeTweet): EncodeObject => ({ typeUrl: "/hkirat.twitos.twitos.MsgLikeTweet", value: MsgLikeTweet.fromPartial( data ) }),
+    msgCreateTweet: (data: MsgCreateTweet): EncodeObject => ({ typeUrl: "/hkirat.twitos.twitos.MsgCreateTweet", value: MsgCreateTweet.fromPartial( data ) }),
     
   };
 };

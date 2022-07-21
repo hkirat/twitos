@@ -1,5 +1,6 @@
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
+import { Reader, util, configure, Writer } from "protobufjs/minimal";
+import * as Long from "long";
 
 export const protobufPackage = "hkirat.twitos.twitos";
 
@@ -19,6 +20,16 @@ export interface MsgCreateTweet {
 
 export interface MsgCreateTweetResponse {
   idValue: string;
+}
+
+export interface MsgLikeTweet {
+  creator: string;
+  tweetId: number;
+  like: boolean;
+}
+
+export interface MsgLikeTweetResponse {
+  done: boolean;
 }
 
 const baseMsgCreateUser: object = { creator: "", name: "" };
@@ -286,11 +297,159 @@ export const MsgCreateTweetResponse = {
   },
 };
 
+const baseMsgLikeTweet: object = { creator: "", tweetId: 0, like: false };
+
+export const MsgLikeTweet = {
+  encode(message: MsgLikeTweet, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.tweetId !== 0) {
+      writer.uint32(16).uint64(message.tweetId);
+    }
+    if (message.like === true) {
+      writer.uint32(24).bool(message.like);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgLikeTweet {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgLikeTweet } as MsgLikeTweet;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.tweetId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.like = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgLikeTweet {
+    const message = { ...baseMsgLikeTweet } as MsgLikeTweet;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.tweetId !== undefined && object.tweetId !== null) {
+      message.tweetId = Number(object.tweetId);
+    } else {
+      message.tweetId = 0;
+    }
+    if (object.like !== undefined && object.like !== null) {
+      message.like = Boolean(object.like);
+    } else {
+      message.like = false;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgLikeTweet): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.tweetId !== undefined && (obj.tweetId = message.tweetId);
+    message.like !== undefined && (obj.like = message.like);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgLikeTweet>): MsgLikeTweet {
+    const message = { ...baseMsgLikeTweet } as MsgLikeTweet;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.tweetId !== undefined && object.tweetId !== null) {
+      message.tweetId = object.tweetId;
+    } else {
+      message.tweetId = 0;
+    }
+    if (object.like !== undefined && object.like !== null) {
+      message.like = object.like;
+    } else {
+      message.like = false;
+    }
+    return message;
+  },
+};
+
+const baseMsgLikeTweetResponse: object = { done: false };
+
+export const MsgLikeTweetResponse = {
+  encode(
+    message: MsgLikeTweetResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.done === true) {
+      writer.uint32(8).bool(message.done);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgLikeTweetResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgLikeTweetResponse } as MsgLikeTweetResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.done = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgLikeTweetResponse {
+    const message = { ...baseMsgLikeTweetResponse } as MsgLikeTweetResponse;
+    if (object.done !== undefined && object.done !== null) {
+      message.done = Boolean(object.done);
+    } else {
+      message.done = false;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgLikeTweetResponse): unknown {
+    const obj: any = {};
+    message.done !== undefined && (obj.done = message.done);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgLikeTweetResponse>): MsgLikeTweetResponse {
+    const message = { ...baseMsgLikeTweetResponse } as MsgLikeTweetResponse;
+    if (object.done !== undefined && object.done !== null) {
+      message.done = object.done;
+    } else {
+      message.done = false;
+    }
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   CreateUser(request: MsgCreateUser): Promise<MsgCreateUserResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   CreateTweet(request: MsgCreateTweet): Promise<MsgCreateTweetResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  LikeTweet(request: MsgLikeTweet): Promise<MsgLikeTweetResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -321,6 +480,18 @@ export class MsgClientImpl implements Msg {
       MsgCreateTweetResponse.decode(new Reader(data))
     );
   }
+
+  LikeTweet(request: MsgLikeTweet): Promise<MsgLikeTweetResponse> {
+    const data = MsgLikeTweet.encode(request).finish();
+    const promise = this.rpc.request(
+      "hkirat.twitos.twitos.Msg",
+      "LikeTweet",
+      data
+    );
+    return promise.then((data) =>
+      MsgLikeTweetResponse.decode(new Reader(data))
+    );
+  }
 }
 
 interface Rpc {
@@ -330,6 +501,16 @@ interface Rpc {
     data: Uint8Array
   ): Promise<Uint8Array>;
 }
+
+declare var self: any | undefined;
+declare var window: any | undefined;
+var globalThis: any = (() => {
+  if (typeof globalThis !== "undefined") return globalThis;
+  if (typeof self !== "undefined") return self;
+  if (typeof window !== "undefined") return window;
+  if (typeof global !== "undefined") return global;
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | undefined;
 export type DeepPartial<T> = T extends Builtin
@@ -341,3 +522,15 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+  }
+  return long.toNumber();
+}
+
+if (util.Long !== Long) {
+  util.Long = Long as any;
+  configure();
+}

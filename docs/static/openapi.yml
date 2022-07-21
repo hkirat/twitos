@@ -48289,6 +48289,11 @@ definitions:
     properties:
       idValue:
         type: string
+  hkirat.twitos.twitos.MsgLikeTweetResponse:
+    type: object
+    properties:
+      done:
+        type: boolean
   hkirat.twitos.twitos.Params:
     type: object
     description: Params defines the parameters for the module.

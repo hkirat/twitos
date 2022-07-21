@@ -9,6 +9,7 @@ option go_package = "github.com/hkirat/twitos/x/twitos/types";
 service Msg {
       rpc CreateUser(MsgCreateUser) returns (MsgCreateUserResponse);
   rpc CreateTweet(MsgCreateTweet) returns (MsgCreateTweetResponse);
+  rpc LikeTweet(MsgLikeTweet) returns (MsgLikeTweetResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -28,6 +29,16 @@ message MsgCreateTweet {
 
 message MsgCreateTweetResponse {
   string idValue = 1;
+}
+
+message MsgLikeTweet {
+  string creator = 1;
+  uint64 tweetId = 2;
+  bool like = 3;
+}
+
+message MsgLikeTweetResponse {
+  bool done = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message

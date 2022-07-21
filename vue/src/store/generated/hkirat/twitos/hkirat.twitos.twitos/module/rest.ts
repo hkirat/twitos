@@ -67,6 +67,10 @@ export interface TwitosMsgCreateUserResponse {
   idValue?: string;
 }
 
+export interface TwitosMsgLikeTweetResponse {
+  done?: boolean;
+}
+
 /**
  * Params defines the parameters for the module.
  */
