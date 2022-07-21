@@ -48279,6 +48279,11 @@ definitions:
       commentIndex:
         type: string
         format: uint64
+  hkirat.twitos.twitos.MsgCreateUserResponse:
+    type: object
+    properties:
+      idValue:
+        type: string
   hkirat.twitos.twitos.Params:
     type: object
     description: Params defines the parameters for the module.

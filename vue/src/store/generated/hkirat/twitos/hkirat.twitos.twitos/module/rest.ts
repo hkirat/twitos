@@ -59,6 +59,10 @@ export interface TwitosDbHead {
   commentIndex?: string;
 }
 
+export interface TwitosMsgCreateUserResponse {
+  idValue?: string;
+}
+
 /**
  * Params defines the parameters for the module.
  */

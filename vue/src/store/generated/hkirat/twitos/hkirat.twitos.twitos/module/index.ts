@@ -4,9 +4,11 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
+import { MsgCreateUser } from "./types/twitos/tx";
 
 
 const types = [
+  ["/hkirat.twitos.twitos.MsgCreateUser", MsgCreateUser],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -39,6 +41,7 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
+    msgCreateUser: (data: MsgCreateUser): EncodeObject => ({ typeUrl: "/hkirat.twitos.twitos.MsgCreateUser", value: MsgCreateUser.fromPartial( data ) }),
     
   };
 };
