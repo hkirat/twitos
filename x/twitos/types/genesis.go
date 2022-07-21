@@ -10,8 +10,9 @@ const DefaultIndex uint64 = 1
 // DefaultGenesis returns the default Capability genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		DbHead:   nil,
-		UserList: []User{},
+		DbHead:             nil,
+		UserList:           []User{},
+		WalletToUserIdList: []WalletToUserId{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -29,6 +30,16 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for user")
 		}
 		userIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in walletToUserId
+	walletToUserIdIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.WalletToUserIdList {
+		index := string(WalletToUserIdKey(elem.Index))
+		if _, ok := walletToUserIdIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for walletToUserId")
+		}
+		walletToUserIdIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

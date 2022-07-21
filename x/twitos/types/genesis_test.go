@@ -35,6 +35,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "1",
 					},
 				},
+				WalletToUserIdList: []types.WalletToUserId{
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -43,6 +51,20 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "duplicated user",
 			genState: &types.GenesisState{
 				UserList: []types.User{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated walletToUserId",
+			genState: &types.GenesisState{
+				WalletToUserIdList: []types.WalletToUserId{
 					{
 						Index: "0",
 					},

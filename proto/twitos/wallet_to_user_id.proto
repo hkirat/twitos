@@ -1,0 +1,11 @@
+syntax = "proto3";
+package hkirat.twitos.twitos;
+
+option go_package = "github.com/hkirat/twitos/x/twitos/types";
+
+message WalletToUserId {
+  string index = 1; 
+  uint64 userId = 2; 
+  
+}
+

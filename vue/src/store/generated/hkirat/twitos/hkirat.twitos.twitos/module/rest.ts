@@ -51,12 +51,31 @@ export interface TwitosQueryAllUserResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface TwitosQueryAllWalletToUserIdResponse {
+  walletToUserId?: TwitosWalletToUserId[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface TwitosQueryGetDbHeadResponse {
   DbHead?: TwitosDbHead;
 }
 
 export interface TwitosQueryGetUserResponse {
   user?: TwitosUser;
+}
+
+export interface TwitosQueryGetWalletToUserIdResponse {
+  walletToUserId?: TwitosWalletToUserId;
 }
 
 /**
@@ -71,6 +90,13 @@ export interface TwitosUser {
   index?: string;
   address?: string;
   name?: string;
+}
+
+export interface TwitosWalletToUserId {
+  index?: string;
+
+  /** @format uint64 */
+  userId?: string;
 }
 
 /**
@@ -401,6 +427,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryUser = (index: string, params: RequestParams = {}) =>
     this.request<TwitosQueryGetUserResponse, RpcStatus>({
       path: `/hkirat/twitos/twitos/user/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryWalletToUserIdAll
+   * @summary Queries a list of WalletToUserId items.
+   * @request GET:/hkirat/twitos/twitos/wallet_to_user_id
+   */
+  queryWalletToUserIdAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<TwitosQueryAllWalletToUserIdResponse, RpcStatus>({
+      path: `/hkirat/twitos/twitos/wallet_to_user_id`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryWalletToUserId
+   * @summary Queries a WalletToUserId by index.
+   * @request GET:/hkirat/twitos/twitos/wallet_to_user_id/{index}
+   */
+  queryWalletToUserId = (index: string, params: RequestParams = {}) =>
+    this.request<TwitosQueryGetWalletToUserIdResponse, RpcStatus>({
+      path: `/hkirat/twitos/twitos/wallet_to_user_id/${index}`,
       method: "GET",
       format: "json",
       ...params,

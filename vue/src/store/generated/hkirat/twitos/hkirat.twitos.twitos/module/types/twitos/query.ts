@@ -7,6 +7,7 @@ import {
   PageRequest,
   PageResponse,
 } from "../cosmos/base/query/v1beta1/pagination";
+import { WalletToUserId } from "../twitos/wallet_to_user_id";
 
 export const protobufPackage = "hkirat.twitos.twitos";
 
@@ -39,6 +40,23 @@ export interface QueryAllUserRequest {
 
 export interface QueryAllUserResponse {
   user: User[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetWalletToUserIdRequest {
+  index: string;
+}
+
+export interface QueryGetWalletToUserIdResponse {
+  walletToUserId: WalletToUserId | undefined;
+}
+
+export interface QueryAllWalletToUserIdRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllWalletToUserIdResponse {
+  walletToUserId: WalletToUserId[];
   pagination: PageResponse | undefined;
 }
 
@@ -504,6 +522,330 @@ export const QueryAllUserResponse = {
   },
 };
 
+const baseQueryGetWalletToUserIdRequest: object = { index: "" };
+
+export const QueryGetWalletToUserIdRequest = {
+  encode(
+    message: QueryGetWalletToUserIdRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetWalletToUserIdRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetWalletToUserIdRequest,
+    } as QueryGetWalletToUserIdRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetWalletToUserIdRequest {
+    const message = {
+      ...baseQueryGetWalletToUserIdRequest,
+    } as QueryGetWalletToUserIdRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetWalletToUserIdRequest): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetWalletToUserIdRequest>
+  ): QueryGetWalletToUserIdRequest {
+    const message = {
+      ...baseQueryGetWalletToUserIdRequest,
+    } as QueryGetWalletToUserIdRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetWalletToUserIdResponse: object = {};
+
+export const QueryGetWalletToUserIdResponse = {
+  encode(
+    message: QueryGetWalletToUserIdResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.walletToUserId !== undefined) {
+      WalletToUserId.encode(
+        message.walletToUserId,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetWalletToUserIdResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetWalletToUserIdResponse,
+    } as QueryGetWalletToUserIdResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.walletToUserId = WalletToUserId.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetWalletToUserIdResponse {
+    const message = {
+      ...baseQueryGetWalletToUserIdResponse,
+    } as QueryGetWalletToUserIdResponse;
+    if (object.walletToUserId !== undefined && object.walletToUserId !== null) {
+      message.walletToUserId = WalletToUserId.fromJSON(object.walletToUserId);
+    } else {
+      message.walletToUserId = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetWalletToUserIdResponse): unknown {
+    const obj: any = {};
+    message.walletToUserId !== undefined &&
+      (obj.walletToUserId = message.walletToUserId
+        ? WalletToUserId.toJSON(message.walletToUserId)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetWalletToUserIdResponse>
+  ): QueryGetWalletToUserIdResponse {
+    const message = {
+      ...baseQueryGetWalletToUserIdResponse,
+    } as QueryGetWalletToUserIdResponse;
+    if (object.walletToUserId !== undefined && object.walletToUserId !== null) {
+      message.walletToUserId = WalletToUserId.fromPartial(
+        object.walletToUserId
+      );
+    } else {
+      message.walletToUserId = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllWalletToUserIdRequest: object = {};
+
+export const QueryAllWalletToUserIdRequest = {
+  encode(
+    message: QueryAllWalletToUserIdRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllWalletToUserIdRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllWalletToUserIdRequest,
+    } as QueryAllWalletToUserIdRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllWalletToUserIdRequest {
+    const message = {
+      ...baseQueryAllWalletToUserIdRequest,
+    } as QueryAllWalletToUserIdRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllWalletToUserIdRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllWalletToUserIdRequest>
+  ): QueryAllWalletToUserIdRequest {
+    const message = {
+      ...baseQueryAllWalletToUserIdRequest,
+    } as QueryAllWalletToUserIdRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllWalletToUserIdResponse: object = {};
+
+export const QueryAllWalletToUserIdResponse = {
+  encode(
+    message: QueryAllWalletToUserIdResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.walletToUserId) {
+      WalletToUserId.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllWalletToUserIdResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllWalletToUserIdResponse,
+    } as QueryAllWalletToUserIdResponse;
+    message.walletToUserId = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.walletToUserId.push(
+            WalletToUserId.decode(reader, reader.uint32())
+          );
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllWalletToUserIdResponse {
+    const message = {
+      ...baseQueryAllWalletToUserIdResponse,
+    } as QueryAllWalletToUserIdResponse;
+    message.walletToUserId = [];
+    if (object.walletToUserId !== undefined && object.walletToUserId !== null) {
+      for (const e of object.walletToUserId) {
+        message.walletToUserId.push(WalletToUserId.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllWalletToUserIdResponse): unknown {
+    const obj: any = {};
+    if (message.walletToUserId) {
+      obj.walletToUserId = message.walletToUserId.map((e) =>
+        e ? WalletToUserId.toJSON(e) : undefined
+      );
+    } else {
+      obj.walletToUserId = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllWalletToUserIdResponse>
+  ): QueryAllWalletToUserIdResponse {
+    const message = {
+      ...baseQueryAllWalletToUserIdResponse,
+    } as QueryAllWalletToUserIdResponse;
+    message.walletToUserId = [];
+    if (object.walletToUserId !== undefined && object.walletToUserId !== null) {
+      for (const e of object.walletToUserId) {
+        message.walletToUserId.push(WalletToUserId.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -514,6 +856,14 @@ export interface Query {
   User(request: QueryGetUserRequest): Promise<QueryGetUserResponse>;
   /** Queries a list of User items. */
   UserAll(request: QueryAllUserRequest): Promise<QueryAllUserResponse>;
+  /** Queries a WalletToUserId by index. */
+  WalletToUserId(
+    request: QueryGetWalletToUserIdRequest
+  ): Promise<QueryGetWalletToUserIdResponse>;
+  /** Queries a list of WalletToUserId items. */
+  WalletToUserIdAll(
+    request: QueryAllWalletToUserIdRequest
+  ): Promise<QueryAllWalletToUserIdResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -564,6 +914,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllUserResponse.decode(new Reader(data))
+    );
+  }
+
+  WalletToUserId(
+    request: QueryGetWalletToUserIdRequest
+  ): Promise<QueryGetWalletToUserIdResponse> {
+    const data = QueryGetWalletToUserIdRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "hkirat.twitos.twitos.Query",
+      "WalletToUserId",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetWalletToUserIdResponse.decode(new Reader(data))
+    );
+  }
+
+  WalletToUserIdAll(
+    request: QueryAllWalletToUserIdRequest
+  ): Promise<QueryAllWalletToUserIdResponse> {
+    const data = QueryAllWalletToUserIdRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "hkirat.twitos.twitos.Query",
+      "WalletToUserIdAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllWalletToUserIdResponse.decode(new Reader(data))
     );
   }
 }

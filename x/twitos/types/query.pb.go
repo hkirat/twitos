@@ -377,6 +377,190 @@ func (m *QueryAllUserResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
+type QueryGetWalletToUserIdRequest struct {
+	Index string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
+}
+
+func (m *QueryGetWalletToUserIdRequest) Reset()         { *m = QueryGetWalletToUserIdRequest{} }
+func (m *QueryGetWalletToUserIdRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetWalletToUserIdRequest) ProtoMessage()    {}
+func (*QueryGetWalletToUserIdRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_38c9b27ef6ea820d, []int{8}
+}
+func (m *QueryGetWalletToUserIdRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetWalletToUserIdRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetWalletToUserIdRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetWalletToUserIdRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetWalletToUserIdRequest.Merge(m, src)
+}
+func (m *QueryGetWalletToUserIdRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetWalletToUserIdRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetWalletToUserIdRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetWalletToUserIdRequest proto.InternalMessageInfo
+
+func (m *QueryGetWalletToUserIdRequest) GetIndex() string {
+	if m != nil {
+		return m.Index
+	}
+	return ""
+}
+
+type QueryGetWalletToUserIdResponse struct {
+	WalletToUserId WalletToUserId `protobuf:"bytes,1,opt,name=walletToUserId,proto3" json:"walletToUserId"`
+}
+
+func (m *QueryGetWalletToUserIdResponse) Reset()         { *m = QueryGetWalletToUserIdResponse{} }
+func (m *QueryGetWalletToUserIdResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetWalletToUserIdResponse) ProtoMessage()    {}
+func (*QueryGetWalletToUserIdResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_38c9b27ef6ea820d, []int{9}
+}
+func (m *QueryGetWalletToUserIdResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetWalletToUserIdResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetWalletToUserIdResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetWalletToUserIdResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetWalletToUserIdResponse.Merge(m, src)
+}
+func (m *QueryGetWalletToUserIdResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetWalletToUserIdResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetWalletToUserIdResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetWalletToUserIdResponse proto.InternalMessageInfo
+
+func (m *QueryGetWalletToUserIdResponse) GetWalletToUserId() WalletToUserId {
+	if m != nil {
+		return m.WalletToUserId
+	}
+	return WalletToUserId{}
+}
+
+type QueryAllWalletToUserIdRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllWalletToUserIdRequest) Reset()         { *m = QueryAllWalletToUserIdRequest{} }
+func (m *QueryAllWalletToUserIdRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllWalletToUserIdRequest) ProtoMessage()    {}
+func (*QueryAllWalletToUserIdRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_38c9b27ef6ea820d, []int{10}
+}
+func (m *QueryAllWalletToUserIdRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllWalletToUserIdRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllWalletToUserIdRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllWalletToUserIdRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllWalletToUserIdRequest.Merge(m, src)
+}
+func (m *QueryAllWalletToUserIdRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllWalletToUserIdRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllWalletToUserIdRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllWalletToUserIdRequest proto.InternalMessageInfo
+
+func (m *QueryAllWalletToUserIdRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllWalletToUserIdResponse struct {
+	WalletToUserId []WalletToUserId    `protobuf:"bytes,1,rep,name=walletToUserId,proto3" json:"walletToUserId"`
+	Pagination     *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllWalletToUserIdResponse) Reset()         { *m = QueryAllWalletToUserIdResponse{} }
+func (m *QueryAllWalletToUserIdResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllWalletToUserIdResponse) ProtoMessage()    {}
+func (*QueryAllWalletToUserIdResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_38c9b27ef6ea820d, []int{11}
+}
+func (m *QueryAllWalletToUserIdResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllWalletToUserIdResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllWalletToUserIdResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllWalletToUserIdResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllWalletToUserIdResponse.Merge(m, src)
+}
+func (m *QueryAllWalletToUserIdResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllWalletToUserIdResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllWalletToUserIdResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllWalletToUserIdResponse proto.InternalMessageInfo
+
+func (m *QueryAllWalletToUserIdResponse) GetWalletToUserId() []WalletToUserId {
+	if m != nil {
+		return m.WalletToUserId
+	}
+	return nil
+}
+
+func (m *QueryAllWalletToUserIdResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "hkirat.twitos.twitos.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "hkirat.twitos.twitos.QueryParamsResponse")
@@ -386,47 +570,60 @@ func init() {
 	proto.RegisterType((*QueryGetUserResponse)(nil), "hkirat.twitos.twitos.QueryGetUserResponse")
 	proto.RegisterType((*QueryAllUserRequest)(nil), "hkirat.twitos.twitos.QueryAllUserRequest")
 	proto.RegisterType((*QueryAllUserResponse)(nil), "hkirat.twitos.twitos.QueryAllUserResponse")
+	proto.RegisterType((*QueryGetWalletToUserIdRequest)(nil), "hkirat.twitos.twitos.QueryGetWalletToUserIdRequest")
+	proto.RegisterType((*QueryGetWalletToUserIdResponse)(nil), "hkirat.twitos.twitos.QueryGetWalletToUserIdResponse")
+	proto.RegisterType((*QueryAllWalletToUserIdRequest)(nil), "hkirat.twitos.twitos.QueryAllWalletToUserIdRequest")
+	proto.RegisterType((*QueryAllWalletToUserIdResponse)(nil), "hkirat.twitos.twitos.QueryAllWalletToUserIdResponse")
 }
 
 func init() { proto.RegisterFile("twitos/query.proto", fileDescriptor_38c9b27ef6ea820d) }
 
 var fileDescriptor_38c9b27ef6ea820d = []byte{
-	// 553 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x94, 0x3f, 0x6f, 0xd3, 0x40,
-	0x18, 0xc6, 0x73, 0x25, 0x0d, 0xe2, 0x98, 0xb8, 0x9a, 0x3f, 0xb2, 0x82, 0x8b, 0x4e, 0x85, 0xb6,
-	0x29, 0xf2, 0xa9, 0x85, 0x89, 0x2d, 0x15, 0x22, 0x0c, 0x0c, 0x6d, 0x04, 0x0b, 0x12, 0x42, 0xe7,
-	0xe6, 0xe4, 0x58, 0x38, 0x3e, 0xd7, 0x77, 0x81, 0x56, 0x88, 0x05, 0x58, 0x60, 0x42, 0x42, 0x7c,
-	0x0c, 0xbe, 0x47, 0xc7, 0x4a, 0x2c, 0x4c, 0x08, 0x25, 0x7c, 0x10, 0xe4, 0xbb, 0x37, 0x6d, 0x9c,
-	0x18, 0x93, 0x29, 0xf1, 0x7b, 0xcf, 0xfb, 0x3e, 0x3f, 0xfb, 0x7d, 0x6c, 0x4c, 0xf4, 0x9b, 0x48,
-	0x4b, 0xc5, 0x0e, 0x87, 0x22, 0x3b, 0xf6, 0xd3, 0x4c, 0x6a, 0x49, 0x9c, 0xfe, 0xab, 0x28, 0xe3,
-	0xda, 0xb7, 0x47, 0xf0, 0xe3, 0x3a, 0xa1, 0x0c, 0xa5, 0x11, 0xb0, 0xfc, 0x9f, 0xd5, 0xba, 0xcd,
-	0x50, 0xca, 0x30, 0x16, 0x8c, 0xa7, 0x11, 0xe3, 0x49, 0x22, 0x35, 0xd7, 0x91, 0x4c, 0x14, 0x9c,
-	0xb6, 0x0e, 0xa4, 0x1a, 0x48, 0xc5, 0x02, 0xae, 0x84, 0xb5, 0x60, 0xaf, 0xb7, 0x03, 0xa1, 0xf9,
-	0x36, 0x4b, 0x79, 0x18, 0x25, 0x46, 0x0c, 0xda, 0x15, 0x20, 0x49, 0x79, 0xc6, 0x07, 0x93, 0x01,
-	0x0e, 0x14, 0x7b, 0xc1, 0xcb, 0xbe, 0xe0, 0x3d, 0xa8, 0x5e, 0x81, 0xea, 0x50, 0x89, 0xcc, 0x96,
-	0xa8, 0x83, 0xc9, 0x7e, 0x3e, 0x7f, 0xcf, 0x74, 0x77, 0xc5, 0xe1, 0x50, 0x28, 0x4d, 0xf7, 0xf1,
-	0x4a, 0xa1, 0xaa, 0x52, 0x99, 0x28, 0x41, 0x1e, 0xe0, 0x86, 0x75, 0xb9, 0x81, 0x6e, 0xa1, 0x8d,
-	0xcb, 0x3b, 0x4d, 0xbf, 0xec, 0x8e, 0x7d, 0xdb, 0xb5, 0x5b, 0x3f, 0xf9, 0xb5, 0x5a, 0xeb, 0x42,
-	0x07, 0xbd, 0x8e, 0xaf, 0x9a, 0x91, 0x1d, 0xa1, 0x1f, 0x06, 0x8f, 0x05, 0xef, 0x4d, 0xbc, 0x9e,
-	0xe2, 0x6b, 0xb3, 0x07, 0xe7, 0x76, 0xb6, 0x52, 0x6d, 0x67, 0x35, 0x13, 0x3b, 0x7b, 0x45, 0xb7,
-	0xe0, 0x0e, 0x3a, 0x42, 0x3f, 0x53, 0x22, 0x03, 0x33, 0xe2, 0xe0, 0xe5, 0x28, 0xe9, 0x89, 0x23,
-	0x33, 0xf1, 0x52, 0xd7, 0x5e, 0xd0, 0x27, 0xd8, 0x29, 0x8a, 0x01, 0xe0, 0x3e, 0xae, 0xe7, 0x8f,
-	0x0a, 0xec, 0xdd, 0x72, 0xfb, 0xbc, 0x03, 0xcc, 0x8d, 0x9a, 0xbe, 0x00, 0xeb, 0x76, 0x1c, 0x4f,
-	0x5b, 0x3f, 0xc2, 0xf8, 0x7c, 0x77, 0x30, 0xf2, 0x8e, 0x6f, 0x17, 0xed, 0xe7, 0x8b, 0xf6, 0x6d,
-	0x96, 0x60, 0xd1, 0xfe, 0x1e, 0x0f, 0x05, 0xf4, 0x76, 0xa7, 0x3a, 0xe9, 0x37, 0x04, 0xb4, 0x67,
-	0xf3, 0xe7, 0x68, 0x2f, 0x2c, 0x4e, 0x4b, 0x3a, 0x05, 0xac, 0x25, 0x83, 0xb5, 0xfe, 0x5f, 0x2c,
-	0x6b, 0x39, 0xcd, 0xb5, 0xf3, 0xbd, 0x8e, 0x97, 0x0d, 0x17, 0xf9, 0x80, 0x70, 0xc3, 0x66, 0x80,
-	0x6c, 0x94, 0x53, 0xcc, 0x47, 0xce, 0xdd, 0x5c, 0x40, 0x69, 0x5d, 0xe9, 0xda, 0xfb, 0x1f, 0x7f,
-	0xbe, 0x2e, 0x79, 0xa4, 0xc9, 0x6c, 0x0b, 0x83, 0x58, 0x17, 0x5e, 0x04, 0xf2, 0x19, 0x4d, 0xe2,
-	0x43, 0xb6, 0x2a, 0x66, 0xcf, 0xe6, 0xd1, 0xbd, 0xbb, 0x98, 0x18, 0x58, 0x6e, 0x1b, 0x96, 0x55,
-	0x72, 0xb3, 0x9c, 0x05, 0xde, 0x3f, 0xf2, 0x09, 0xe1, 0x7a, 0xfe, 0xe8, 0xc9, 0x66, 0xf5, 0xf4,
-	0xa9, 0xc0, 0xb8, 0xad, 0x45, 0xa4, 0x80, 0xd1, 0x32, 0x18, 0x6b, 0x84, 0x96, 0x63, 0xe4, 0x9b,
-	0x66, 0x6f, 0x4d, 0xd8, 0xdf, 0x91, 0x8f, 0x08, 0x5f, 0xcc, 0x9b, 0xdb, 0x71, 0x5c, 0x89, 0x53,
-	0xcc, 0x6f, 0x25, 0xce, 0x4c, 0x14, 0x29, 0x35, 0x38, 0x4d, 0xe2, 0xfe, 0x1b, 0x67, 0xb7, 0x7d,
-	0x32, 0xf2, 0xd0, 0xe9, 0xc8, 0x43, 0xbf, 0x47, 0x1e, 0xfa, 0x32, 0xf6, 0x6a, 0xa7, 0x63, 0xaf,
-	0xf6, 0x73, 0xec, 0xd5, 0x9e, 0xaf, 0x87, 0x91, 0xee, 0x0f, 0x03, 0xff, 0x40, 0x0e, 0x66, 0xfa,
-	0x8f, 0xce, 0x06, 0x1d, 0xa7, 0x42, 0x05, 0x0d, 0xf3, 0x0d, 0xbb, 0xf7, 0x37, 0x00, 0x00, 0xff,
-	0xff, 0x4b, 0xb5, 0x25, 0x7e, 0x8d, 0x05, 0x00, 0x00,
+	// 698 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x96, 0xcf, 0x6b, 0xd4, 0x40,
+	0x14, 0xc7, 0x77, 0xfa, 0x13, 0x47, 0x28, 0x74, 0x1a, 0x7f, 0x10, 0xb6, 0xa9, 0x0c, 0xd5, 0xfe,
+	0x92, 0x0c, 0xfd, 0x21, 0x82, 0xb7, 0x2d, 0x62, 0x15, 0x3c, 0xb4, 0x4b, 0x45, 0x10, 0x64, 0x99,
+	0x74, 0x87, 0x34, 0x98, 0x66, 0xd2, 0x64, 0xd6, 0xb6, 0x88, 0x17, 0xf5, 0xa2, 0x27, 0x41, 0xf4,
+	0xdf, 0xf0, 0xe2, 0xd5, 0x7b, 0x8f, 0x05, 0x2f, 0x9e, 0x44, 0x5a, 0xff, 0x10, 0xc9, 0xcc, 0xdb,
+	0xb6, 0xd9, 0x66, 0xe3, 0x16, 0x7b, 0xda, 0xcd, 0xcc, 0x7b, 0xdf, 0xef, 0xe7, 0xbd, 0xcc, 0xbc,
+	0x5d, 0x4c, 0xd4, 0x4e, 0xa0, 0x64, 0xca, 0xb6, 0x5b, 0x22, 0xd9, 0x73, 0xe3, 0x44, 0x2a, 0x49,
+	0xac, 0xcd, 0x17, 0x41, 0xc2, 0x95, 0x6b, 0xb6, 0xe0, 0xc3, 0xb6, 0x7c, 0xe9, 0x4b, 0x1d, 0xc0,
+	0xb2, 0x6f, 0x26, 0xd6, 0xae, 0xfa, 0x52, 0xfa, 0xa1, 0x60, 0x3c, 0x0e, 0x18, 0x8f, 0x22, 0xa9,
+	0xb8, 0x0a, 0x64, 0x94, 0xc2, 0xee, 0xec, 0x86, 0x4c, 0xb7, 0x64, 0xca, 0x3c, 0x9e, 0x0a, 0x63,
+	0xc1, 0x5e, 0xce, 0x7b, 0x42, 0xf1, 0x79, 0x16, 0x73, 0x3f, 0x88, 0x74, 0x30, 0xc4, 0x8e, 0x01,
+	0x49, 0xcc, 0x13, 0xbe, 0xd5, 0x16, 0xb0, 0x60, 0xb1, 0xe9, 0x35, 0x36, 0x05, 0x6f, 0xc2, 0xea,
+	0x28, 0xac, 0xb6, 0x52, 0x91, 0xc0, 0x92, 0x03, 0x4b, 0x3b, 0x3c, 0x0c, 0x85, 0x6a, 0x28, 0xd9,
+	0xc8, 0x36, 0x1b, 0x01, 0xa4, 0x50, 0x0b, 0x93, 0xb5, 0xcc, 0x7f, 0x55, 0xab, 0xd7, 0xc5, 0x76,
+	0x4b, 0xa4, 0x8a, 0xae, 0xe1, 0xb1, 0xdc, 0x6a, 0x1a, 0xcb, 0x28, 0x15, 0xe4, 0x1e, 0x1e, 0x32,
+	0x14, 0xd7, 0xd1, 0x0d, 0x34, 0x7d, 0x79, 0xa1, 0xea, 0x16, 0x75, 0xc4, 0x35, 0x59, 0xcb, 0x03,
+	0xfb, 0xbf, 0x26, 0x2a, 0x75, 0xc8, 0xa0, 0xd7, 0xf0, 0x15, 0x2d, 0xb9, 0x22, 0xd4, 0x7d, 0xef,
+	0xa1, 0xe0, 0xcd, 0xb6, 0xd7, 0x3a, 0xbe, 0xda, 0xb9, 0x71, 0x62, 0x67, 0x56, 0xca, 0xed, 0x4c,
+	0x4c, 0xdb, 0xce, 0x3c, 0xd1, 0x39, 0xa8, 0x60, 0x45, 0xa8, 0x27, 0xa9, 0x48, 0xc0, 0x8c, 0x58,
+	0x78, 0x30, 0x88, 0x9a, 0x62, 0x57, 0x2b, 0x5e, 0xaa, 0x9b, 0x07, 0xfa, 0x18, 0x5b, 0xf9, 0x60,
+	0x00, 0x58, 0xc2, 0x03, 0x59, 0xb7, 0xc0, 0xde, 0x2e, 0xb6, 0xcf, 0x32, 0xc0, 0x5c, 0x47, 0xd3,
+	0xe7, 0x60, 0x5d, 0x0b, 0xc3, 0xd3, 0xd6, 0x0f, 0x30, 0x3e, 0x79, 0xb7, 0x20, 0x79, 0xcb, 0x35,
+	0x07, 0xc1, 0xcd, 0x0e, 0x82, 0x6b, 0xce, 0x1a, 0x1c, 0x04, 0x77, 0x95, 0xfb, 0x02, 0x72, 0xeb,
+	0xa7, 0x32, 0xe9, 0x67, 0x04, 0xb4, 0xc7, 0xfa, 0x67, 0x68, 0xfb, 0x7b, 0xa7, 0x25, 0x2b, 0x39,
+	0xac, 0x3e, 0x8d, 0x35, 0xf5, 0x4f, 0x2c, 0x63, 0x99, 0xe3, 0xba, 0x83, 0xc7, 0xdb, 0x4d, 0x7c,
+	0xaa, 0x0f, 0xdb, 0xba, 0xcc, 0xcc, 0x1e, 0x35, 0xcb, 0x7b, 0xaf, 0xb0, 0xd3, 0x2d, 0x0d, 0xea,
+	0xaa, 0xe3, 0x91, 0x9d, 0xdc, 0x0e, 0x34, 0x6f, 0xb2, 0xb8, 0xc2, 0xbc, 0x0a, 0xd4, 0xda, 0xa1,
+	0x40, 0x7d, 0x80, 0xad, 0x85, 0x61, 0x31, 0xec, 0x45, 0xbd, 0xad, 0xef, 0x08, 0xea, 0x2b, 0x70,
+	0x2a, 0xa9, 0xaf, 0xff, 0xff, 0xea, 0xbb, 0xb0, 0xb7, 0xba, 0xf0, 0x65, 0x18, 0x0f, 0x6a, 0x7e,
+	0xf2, 0x16, 0xe1, 0x21, 0x73, 0xb3, 0xc9, 0x74, 0x31, 0xd9, 0xd9, 0x41, 0x62, 0xcf, 0xf4, 0x10,
+	0x69, 0x5c, 0xe9, 0xe4, 0x9b, 0x1f, 0x7f, 0x3e, 0xf5, 0x39, 0xa4, 0xca, 0x4c, 0x0a, 0x83, 0xc9,
+	0x95, 0x1b, 0x7f, 0xe4, 0x03, 0x6a, 0x0f, 0x05, 0x32, 0x57, 0xa2, 0xdd, 0x39, 0x65, 0xec, 0xdb,
+	0xbd, 0x05, 0x03, 0xcb, 0x4d, 0xcd, 0x32, 0x41, 0xc6, 0x8b, 0x59, 0x60, 0xea, 0x92, 0xf7, 0x08,
+	0x0f, 0x64, 0x0d, 0x27, 0x33, 0xe5, 0xea, 0xa7, 0xc6, 0x80, 0x3d, 0xdb, 0x4b, 0x28, 0x60, 0xcc,
+	0x6a, 0x8c, 0x49, 0x42, 0x8b, 0x31, 0xb2, 0xfb, 0xcb, 0x5e, 0xe9, 0x6b, 0xf4, 0x9a, 0xbc, 0x43,
+	0x78, 0x38, 0x4b, 0xae, 0x85, 0x61, 0x29, 0x4e, 0x7e, 0x2a, 0x95, 0xe2, 0x74, 0x0c, 0x18, 0x4a,
+	0x35, 0x4e, 0x95, 0xd8, 0xdd, 0x71, 0xc8, 0x37, 0x84, 0x47, 0xf2, 0x27, 0x94, 0x2c, 0x96, 0x57,
+	0x5c, 0x78, 0xff, 0xec, 0xa5, 0xf3, 0x25, 0x01, 0xe1, 0x5d, 0x4d, 0x38, 0x4f, 0x58, 0x31, 0xe1,
+	0x99, 0x1f, 0xc1, 0xe3, 0xee, 0x7d, 0x45, 0x78, 0x34, 0xaf, 0x99, 0xf5, 0x71, 0xb1, 0xbc, 0x39,
+	0xe7, 0x27, 0xef, 0x3a, 0x04, 0x28, 0xd3, 0xe4, 0x33, 0x64, 0xaa, 0x47, 0xf2, 0xe5, 0xda, 0xfe,
+	0xa1, 0x83, 0x0e, 0x0e, 0x1d, 0xf4, 0xfb, 0xd0, 0x41, 0x1f, 0x8f, 0x9c, 0xca, 0xc1, 0x91, 0x53,
+	0xf9, 0x79, 0xe4, 0x54, 0x9e, 0x4d, 0xf9, 0x81, 0xda, 0x6c, 0x79, 0xee, 0x86, 0xdc, 0xea, 0x10,
+	0xdb, 0x3d, 0x56, 0xdd, 0x8b, 0x45, 0xea, 0x0d, 0xe9, 0xbf, 0x00, 0x8b, 0x7f, 0x03, 0x00, 0x00,
+	0xff, 0xff, 0xf7, 0x65, 0x35, 0x5b, 0xec, 0x08, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -449,6 +646,10 @@ type QueryClient interface {
 	User(ctx context.Context, in *QueryGetUserRequest, opts ...grpc.CallOption) (*QueryGetUserResponse, error)
 	// Queries a list of User items.
 	UserAll(ctx context.Context, in *QueryAllUserRequest, opts ...grpc.CallOption) (*QueryAllUserResponse, error)
+	// Queries a WalletToUserId by index.
+	WalletToUserId(ctx context.Context, in *QueryGetWalletToUserIdRequest, opts ...grpc.CallOption) (*QueryGetWalletToUserIdResponse, error)
+	// Queries a list of WalletToUserId items.
+	WalletToUserIdAll(ctx context.Context, in *QueryAllWalletToUserIdRequest, opts ...grpc.CallOption) (*QueryAllWalletToUserIdResponse, error)
 }
 
 type queryClient struct {
@@ -495,6 +696,24 @@ func (c *queryClient) UserAll(ctx context.Context, in *QueryAllUserRequest, opts
 	return out, nil
 }
 
+func (c *queryClient) WalletToUserId(ctx context.Context, in *QueryGetWalletToUserIdRequest, opts ...grpc.CallOption) (*QueryGetWalletToUserIdResponse, error) {
+	out := new(QueryGetWalletToUserIdResponse)
+	err := c.cc.Invoke(ctx, "/hkirat.twitos.twitos.Query/WalletToUserId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) WalletToUserIdAll(ctx context.Context, in *QueryAllWalletToUserIdRequest, opts ...grpc.CallOption) (*QueryAllWalletToUserIdResponse, error) {
+	out := new(QueryAllWalletToUserIdResponse)
+	err := c.cc.Invoke(ctx, "/hkirat.twitos.twitos.Query/WalletToUserIdAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
@@ -505,6 +724,10 @@ type QueryServer interface {
 	User(context.Context, *QueryGetUserRequest) (*QueryGetUserResponse, error)
 	// Queries a list of User items.
 	UserAll(context.Context, *QueryAllUserRequest) (*QueryAllUserResponse, error)
+	// Queries a WalletToUserId by index.
+	WalletToUserId(context.Context, *QueryGetWalletToUserIdRequest) (*QueryGetWalletToUserIdResponse, error)
+	// Queries a list of WalletToUserId items.
+	WalletToUserIdAll(context.Context, *QueryAllWalletToUserIdRequest) (*QueryAllWalletToUserIdResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -522,6 +745,12 @@ func (*UnimplementedQueryServer) User(ctx context.Context, req *QueryGetUserRequ
 }
 func (*UnimplementedQueryServer) UserAll(ctx context.Context, req *QueryAllUserRequest) (*QueryAllUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserAll not implemented")
+}
+func (*UnimplementedQueryServer) WalletToUserId(ctx context.Context, req *QueryGetWalletToUserIdRequest) (*QueryGetWalletToUserIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WalletToUserId not implemented")
+}
+func (*UnimplementedQueryServer) WalletToUserIdAll(ctx context.Context, req *QueryAllWalletToUserIdRequest) (*QueryAllWalletToUserIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WalletToUserIdAll not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -600,6 +829,42 @@ func _Query_UserAll_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_WalletToUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetWalletToUserIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).WalletToUserId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/hkirat.twitos.twitos.Query/WalletToUserId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).WalletToUserId(ctx, req.(*QueryGetWalletToUserIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_WalletToUserIdAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllWalletToUserIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).WalletToUserIdAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/hkirat.twitos.twitos.Query/WalletToUserIdAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).WalletToUserIdAll(ctx, req.(*QueryAllWalletToUserIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "hkirat.twitos.twitos.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -619,6 +884,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserAll",
 			Handler:    _Query_UserAll_Handler,
+		},
+		{
+			MethodName: "WalletToUserId",
+			Handler:    _Query_WalletToUserId_Handler,
+		},
+		{
+			MethodName: "WalletToUserIdAll",
+			Handler:    _Query_WalletToUserIdAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -884,6 +1157,153 @@ func (m *QueryAllUserResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryGetWalletToUserIdRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetWalletToUserIdRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetWalletToUserIdRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Index) > 0 {
+		i -= len(m.Index)
+		copy(dAtA[i:], m.Index)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Index)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetWalletToUserIdResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetWalletToUserIdResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetWalletToUserIdResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.WalletToUserId.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllWalletToUserIdRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllWalletToUserIdRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllWalletToUserIdRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllWalletToUserIdResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllWalletToUserIdResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllWalletToUserIdResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.WalletToUserId) > 0 {
+		for iNdEx := len(m.WalletToUserId) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.WalletToUserId[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -980,6 +1400,62 @@ func (m *QueryAllUserResponse) Size() (n int) {
 	_ = l
 	if len(m.User) > 0 {
 		for _, e := range m.User {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetWalletToUserIdRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Index)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetWalletToUserIdResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.WalletToUserId.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllWalletToUserIdRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllWalletToUserIdResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.WalletToUserId) > 0 {
+		for _, e := range m.WalletToUserId {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
@@ -1574,6 +2050,377 @@ func (m *QueryAllUserResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.User = append(m.User, User{})
 			if err := m.User[len(m.User)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetWalletToUserIdRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetWalletToUserIdRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetWalletToUserIdRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Index", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Index = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetWalletToUserIdResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetWalletToUserIdResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetWalletToUserIdResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field WalletToUserId", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.WalletToUserId.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllWalletToUserIdRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllWalletToUserIdRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllWalletToUserIdRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllWalletToUserIdResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllWalletToUserIdResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllWalletToUserIdResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field WalletToUserId", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.WalletToUserId = append(m.WalletToUserId, WalletToUserId{})
+			if err := m.WalletToUserId[len(m.WalletToUserId)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

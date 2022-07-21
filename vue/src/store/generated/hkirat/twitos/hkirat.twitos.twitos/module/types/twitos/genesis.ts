@@ -2,6 +2,7 @@
 import { Params } from "../twitos/params";
 import { DbHead } from "../twitos/db_head";
 import { User } from "../twitos/user";
+import { WalletToUserId } from "../twitos/wallet_to_user_id";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "hkirat.twitos.twitos";
@@ -10,8 +11,9 @@ export const protobufPackage = "hkirat.twitos.twitos";
 export interface GenesisState {
   params: Params | undefined;
   dbHead: DbHead | undefined;
-  /** this line is used by starport scaffolding # genesis/proto/state */
   userList: User[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  walletToUserIdList: WalletToUserId[];
 }
 
 const baseGenesisState: object = {};
@@ -27,6 +29,9 @@ export const GenesisState = {
     for (const v of message.userList) {
       User.encode(v!, writer.uint32(26).fork()).ldelim();
     }
+    for (const v of message.walletToUserIdList) {
+      WalletToUserId.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -35,6 +40,7 @@ export const GenesisState = {
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseGenesisState } as GenesisState;
     message.userList = [];
+    message.walletToUserIdList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -47,6 +53,11 @@ export const GenesisState = {
         case 3:
           message.userList.push(User.decode(reader, reader.uint32()));
           break;
+        case 4:
+          message.walletToUserIdList.push(
+            WalletToUserId.decode(reader, reader.uint32())
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -58,6 +69,7 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.userList = [];
+    message.walletToUserIdList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -71,6 +83,14 @@ export const GenesisState = {
     if (object.userList !== undefined && object.userList !== null) {
       for (const e of object.userList) {
         message.userList.push(User.fromJSON(e));
+      }
+    }
+    if (
+      object.walletToUserIdList !== undefined &&
+      object.walletToUserIdList !== null
+    ) {
+      for (const e of object.walletToUserIdList) {
+        message.walletToUserIdList.push(WalletToUserId.fromJSON(e));
       }
     }
     return message;
@@ -89,12 +109,20 @@ export const GenesisState = {
     } else {
       obj.userList = [];
     }
+    if (message.walletToUserIdList) {
+      obj.walletToUserIdList = message.walletToUserIdList.map((e) =>
+        e ? WalletToUserId.toJSON(e) : undefined
+      );
+    } else {
+      obj.walletToUserIdList = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.userList = [];
+    message.walletToUserIdList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -108,6 +136,14 @@ export const GenesisState = {
     if (object.userList !== undefined && object.userList !== null) {
       for (const e of object.userList) {
         message.userList.push(User.fromPartial(e));
+      }
+    }
+    if (
+      object.walletToUserIdList !== undefined &&
+      object.walletToUserIdList !== null
+    ) {
+      for (const e of object.walletToUserIdList) {
+        message.walletToUserIdList.push(WalletToUserId.fromPartial(e));
       }
     }
     return message;
