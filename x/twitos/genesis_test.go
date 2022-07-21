@@ -19,6 +19,14 @@ func TestGenesis(t *testing.T) {
 			TweetIndex:   59,
 			CommentIndex: 74,
 		},
+		UserList: []types.User{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -31,5 +39,6 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(got)
 
 	require.Equal(t, genesisState.DbHead, got.DbHead)
+	require.ElementsMatch(t, genesisState.UserList, got.UserList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

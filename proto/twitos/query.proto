@@ -6,6 +6,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "twitos/params.proto";
 import "twitos/db_head.proto";
+import "twitos/user.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/hkirat/twitos/x/twitos/types";
@@ -20,6 +21,16 @@ service Query {
 	rpc DbHead(QueryGetDbHeadRequest) returns (QueryGetDbHeadResponse) {
 		option (google.api.http).get = "/hkirat/twitos/twitos/db_head";
 	}
+// Queries a User by index.
+	rpc User(QueryGetUserRequest) returns (QueryGetUserResponse) {
+		option (google.api.http).get = "/hkirat/twitos/twitos/user/{index}";
+	}
+
+	// Queries a list of User items.
+	rpc UserAll(QueryAllUserRequest) returns (QueryAllUserResponse) {
+		option (google.api.http).get = "/hkirat/twitos/twitos/user";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -37,4 +48,22 @@ message QueryGetDbHeadRequest {}
 message QueryGetDbHeadResponse {
 	DbHead DbHead = 1 [(gogoproto.nullable) = false];
 }
+message QueryGetUserRequest {
+	  string index = 1;
+
+}
+
+message QueryGetUserResponse {
+	User user = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllUserRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllUserResponse {
+	repeated User user = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
 // this line is used by starport scaffolding # 3

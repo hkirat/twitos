@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { Params } from "../twitos/params";
 import { DbHead } from "../twitos/db_head";
+import { User } from "../twitos/user";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "hkirat.twitos.twitos";
@@ -8,8 +9,9 @@ export const protobufPackage = "hkirat.twitos.twitos";
 /** GenesisState defines the twitos module's genesis state. */
 export interface GenesisState {
   params: Params | undefined;
-  /** this line is used by starport scaffolding # genesis/proto/state */
   dbHead: DbHead | undefined;
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  userList: User[];
 }
 
 const baseGenesisState: object = {};
@@ -22,6 +24,9 @@ export const GenesisState = {
     if (message.dbHead !== undefined) {
       DbHead.encode(message.dbHead, writer.uint32(18).fork()).ldelim();
     }
+    for (const v of message.userList) {
+      User.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -29,6 +34,7 @@ export const GenesisState = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseGenesisState } as GenesisState;
+    message.userList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -37,6 +43,9 @@ export const GenesisState = {
           break;
         case 2:
           message.dbHead = DbHead.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.userList.push(User.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -48,6 +57,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
+    message.userList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -58,6 +68,11 @@ export const GenesisState = {
     } else {
       message.dbHead = undefined;
     }
+    if (object.userList !== undefined && object.userList !== null) {
+      for (const e of object.userList) {
+        message.userList.push(User.fromJSON(e));
+      }
+    }
     return message;
   },
 
@@ -67,11 +82,19 @@ export const GenesisState = {
       (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     message.dbHead !== undefined &&
       (obj.dbHead = message.dbHead ? DbHead.toJSON(message.dbHead) : undefined);
+    if (message.userList) {
+      obj.userList = message.userList.map((e) =>
+        e ? User.toJSON(e) : undefined
+      );
+    } else {
+      obj.userList = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
+    message.userList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -81,6 +104,11 @@ export const GenesisState = {
       message.dbHead = DbHead.fromPartial(object.dbHead);
     } else {
       message.dbHead = undefined;
+    }
+    if (object.userList !== undefined && object.userList !== null) {
+      for (const e of object.userList) {
+        message.userList.push(User.fromPartial(e));
+      }
     }
     return message;
   },

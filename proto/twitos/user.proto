@@ -1,0 +1,12 @@
+syntax = "proto3";
+package hkirat.twitos.twitos;
+
+option go_package = "github.com/hkirat/twitos/x/twitos/types";
+
+message User {
+  string index = 1; 
+  string address = 2; 
+  string name = 3; 
+  
+}
+

@@ -13,6 +13,10 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	if genState.DbHead != nil {
 		k.SetDbHead(ctx, *genState.DbHead)
 	}
+	// Set all the user
+	for _, elem := range genState.UserList {
+		k.SetUser(ctx, elem)
+	}
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -27,6 +31,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	if found {
 		genesis.DbHead = &dbHead
 	}
+	genesis.UserList = k.GetAllUser(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

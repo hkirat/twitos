@@ -27,9 +27,31 @@ func TestGenesisState_Validate(t *testing.T) {
 					TweetIndex:   96,
 					CommentIndex: 28,
 				},
+				UserList: []types.User{
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
+		},
+		{
+			desc: "duplicated user",
+			genState: &types.GenesisState{
+				UserList: []types.User{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
 		},
 		// this line is used by starport scaffolding # types/genesis/testcase
 	} {
