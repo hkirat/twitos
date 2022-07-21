@@ -43,6 +43,15 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "1",
 					},
 				},
+				TweetList: []types.Tweet{
+					{
+						Id: 0,
+					},
+					{
+						Id: 1,
+					},
+				},
+				TweetCount: 2,
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -72,6 +81,32 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "0",
 					},
 				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated tweet",
+			genState: &types.GenesisState{
+				TweetList: []types.Tweet{
+					{
+						Id: 0,
+					},
+					{
+						Id: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "invalid tweet count",
+			genState: &types.GenesisState{
+				TweetList: []types.Tweet{
+					{
+						Id: 1,
+					},
+				},
+				TweetCount: 0,
 			},
 			valid: false,
 		},

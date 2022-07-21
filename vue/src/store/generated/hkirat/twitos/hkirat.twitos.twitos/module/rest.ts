@@ -36,6 +36,21 @@ export interface TwitosDbHead {
  */
 export type TwitosParams = object;
 
+export interface TwitosQueryAllTweetResponse {
+  Tweet?: TwitosTweet[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface TwitosQueryAllUserResponse {
   user?: TwitosUser[];
 
@@ -70,6 +85,10 @@ export interface TwitosQueryGetDbHeadResponse {
   DbHead?: TwitosDbHead;
 }
 
+export interface TwitosQueryGetTweetResponse {
+  Tweet?: TwitosTweet;
+}
+
 export interface TwitosQueryGetUserResponse {
   user?: TwitosUser;
 }
@@ -84,6 +103,24 @@ export interface TwitosQueryGetWalletToUserIdResponse {
 export interface TwitosQueryParamsResponse {
   /** params holds all the parameters of this module. */
   params?: TwitosParams;
+}
+
+export interface TwitosTweet {
+  /** @format uint64 */
+  id?: string;
+
+  /** @format uint64 */
+  tweetId?: string;
+
+  /** @format uint64 */
+  owner?: string;
+  description?: string;
+
+  /** @format uint64 */
+  likes?: string;
+
+  /** @format uint64 */
+  comments?: string;
 }
 
 export interface TwitosUser {
@@ -385,6 +422,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<TwitosQueryParamsResponse, RpcStatus>({
       path: `/hkirat/twitos/twitos/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryTweetAll
+   * @summary Queries a list of Tweet items.
+   * @request GET:/hkirat/twitos/twitos/tweet
+   */
+  queryTweetAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<TwitosQueryAllTweetResponse, RpcStatus>({
+      path: `/hkirat/twitos/twitos/tweet`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryTweet
+   * @summary Queries a Tweet by id.
+   * @request GET:/hkirat/twitos/twitos/tweet/{id}
+   */
+  queryTweet = (id: string, params: RequestParams = {}) =>
+    this.request<TwitosQueryGetTweetResponse, RpcStatus>({
+      path: `/hkirat/twitos/twitos/tweet/${id}`,
       method: "GET",
       format: "json",
       ...params,

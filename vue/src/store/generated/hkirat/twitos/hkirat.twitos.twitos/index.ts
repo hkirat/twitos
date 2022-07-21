@@ -2,11 +2,12 @@ import { txClient, queryClient, MissingWalletError , registry} from './module'
 
 import { DbHead } from "./module/types/twitos/db_head"
 import { Params } from "./module/types/twitos/params"
+import { Tweet } from "./module/types/twitos/tweet"
 import { User } from "./module/types/twitos/user"
 import { WalletToUserId } from "./module/types/twitos/wallet_to_user_id"
 
 
-export { DbHead, Params, User, WalletToUserId };
+export { DbHead, Params, Tweet, User, WalletToUserId };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -50,10 +51,13 @@ const getDefaultState = () => {
 				UserAll: {},
 				WalletToUserId: {},
 				WalletToUserIdAll: {},
+				Tweet: {},
+				TweetAll: {},
 				
 				_Structure: {
 						DbHead: getStructure(DbHead.fromPartial({})),
 						Params: getStructure(Params.fromPartial({})),
+						Tweet: getStructure(Tweet.fromPartial({})),
 						User: getStructure(User.fromPartial({})),
 						WalletToUserId: getStructure(WalletToUserId.fromPartial({})),
 						
@@ -119,6 +123,18 @@ export default {
 						(<any> params).query=null
 					}
 			return state.WalletToUserIdAll[JSON.stringify(params)] ?? {}
+		},
+				getTweet: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.Tweet[JSON.stringify(params)] ?? {}
+		},
+				getTweetAll: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.TweetAll[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -289,6 +305,54 @@ export default {
 				return getters['getWalletToUserIdAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new Error('QueryClient:QueryWalletToUserIdAll API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryTweet({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryTweet( key.id)).data
+				
+					
+				commit('QUERY', { query: 'Tweet', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryTweet', payload: { options: { all }, params: {...key},query }})
+				return getters['getTweet']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryTweet API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryTweetAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryTweetAll(query)).data
+				
+					
+				while (all && (<any> value).pagination && (<any> value).pagination.next_key!=null) {
+					let next_values=(await queryClient.queryTweetAll({...query, 'pagination.key':(<any> value).pagination.next_key})).data
+					value = mergeResults(value, next_values);
+				}
+				commit('QUERY', { query: 'TweetAll', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryTweetAll', payload: { options: { all }, params: {...key},query }})
+				return getters['getTweetAll']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryTweetAll API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},

@@ -13,6 +13,7 @@ func DefaultGenesis() *GenesisState {
 		DbHead:             nil,
 		UserList:           []User{},
 		WalletToUserIdList: []WalletToUserId{},
+		TweetList:          []Tweet{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -40,6 +41,18 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for walletToUserId")
 		}
 		walletToUserIdIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated ID in tweet
+	tweetIdMap := make(map[uint64]bool)
+	tweetCount := gs.GetTweetCount()
+	for _, elem := range gs.TweetList {
+		if _, ok := tweetIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for tweet")
+		}
+		if elem.Id >= tweetCount {
+			return fmt.Errorf("tweet id should be lower or equal than the last id")
+		}
+		tweetIdMap[elem.Id] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

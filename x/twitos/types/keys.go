@@ -24,3 +24,8 @@ func KeyPrefix(p string) []byte {
 const (
 	DbHeadKey = "DbHead-value-"
 )
+
+const (
+	TweetKey      = "Tweet-value-"
+	TweetCountKey = "Tweet-count-"
+)

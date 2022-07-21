@@ -6,6 +6,7 @@ import "twitos/params.proto";
 import "twitos/db_head.proto";
 import "twitos/user.proto";
 import "twitos/wallet_to_user_id.proto";
+import "twitos/tweet.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/hkirat/twitos/x/twitos/types";
@@ -16,5 +17,7 @@ message GenesisState {
   DbHead dbHead = 2;
   repeated User userList = 3 [(gogoproto.nullable) = false];
   repeated WalletToUserId walletToUserIdList = 4 [(gogoproto.nullable) = false];
+  repeated Tweet tweetList = 5 [(gogoproto.nullable) = false];
+  uint64 tweetCount = 6;
   // this line is used by starport scaffolding # genesis/proto/state
 }

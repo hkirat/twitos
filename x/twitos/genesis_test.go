@@ -35,6 +35,15 @@ func TestGenesis(t *testing.T) {
 				Index: "1",
 			},
 		},
+		TweetList: []types.Tweet{
+			{
+				Id: 0,
+			},
+			{
+				Id: 1,
+			},
+		},
+		TweetCount: 2,
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -49,5 +58,7 @@ func TestGenesis(t *testing.T) {
 	require.Equal(t, genesisState.DbHead, got.DbHead)
 	require.ElementsMatch(t, genesisState.UserList, got.UserList)
 	require.ElementsMatch(t, genesisState.WalletToUserIdList, got.WalletToUserIdList)
+	require.ElementsMatch(t, genesisState.TweetList, got.TweetList)
+	require.Equal(t, genesisState.TweetCount, got.TweetCount)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

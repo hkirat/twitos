@@ -561,6 +561,190 @@ func (m *QueryAllWalletToUserIdResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
+type QueryGetTweetRequest struct {
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *QueryGetTweetRequest) Reset()         { *m = QueryGetTweetRequest{} }
+func (m *QueryGetTweetRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetTweetRequest) ProtoMessage()    {}
+func (*QueryGetTweetRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_38c9b27ef6ea820d, []int{12}
+}
+func (m *QueryGetTweetRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetTweetRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetTweetRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetTweetRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetTweetRequest.Merge(m, src)
+}
+func (m *QueryGetTweetRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetTweetRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetTweetRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetTweetRequest proto.InternalMessageInfo
+
+func (m *QueryGetTweetRequest) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type QueryGetTweetResponse struct {
+	Tweet Tweet `protobuf:"bytes,1,opt,name=Tweet,proto3" json:"Tweet"`
+}
+
+func (m *QueryGetTweetResponse) Reset()         { *m = QueryGetTweetResponse{} }
+func (m *QueryGetTweetResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetTweetResponse) ProtoMessage()    {}
+func (*QueryGetTweetResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_38c9b27ef6ea820d, []int{13}
+}
+func (m *QueryGetTweetResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetTweetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetTweetResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetTweetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetTweetResponse.Merge(m, src)
+}
+func (m *QueryGetTweetResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetTweetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetTweetResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetTweetResponse proto.InternalMessageInfo
+
+func (m *QueryGetTweetResponse) GetTweet() Tweet {
+	if m != nil {
+		return m.Tweet
+	}
+	return Tweet{}
+}
+
+type QueryAllTweetRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllTweetRequest) Reset()         { *m = QueryAllTweetRequest{} }
+func (m *QueryAllTweetRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllTweetRequest) ProtoMessage()    {}
+func (*QueryAllTweetRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_38c9b27ef6ea820d, []int{14}
+}
+func (m *QueryAllTweetRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllTweetRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllTweetRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllTweetRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllTweetRequest.Merge(m, src)
+}
+func (m *QueryAllTweetRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllTweetRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllTweetRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllTweetRequest proto.InternalMessageInfo
+
+func (m *QueryAllTweetRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllTweetResponse struct {
+	Tweet      []Tweet             `protobuf:"bytes,1,rep,name=Tweet,proto3" json:"Tweet"`
+	Pagination *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllTweetResponse) Reset()         { *m = QueryAllTweetResponse{} }
+func (m *QueryAllTweetResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllTweetResponse) ProtoMessage()    {}
+func (*QueryAllTweetResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_38c9b27ef6ea820d, []int{15}
+}
+func (m *QueryAllTweetResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllTweetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllTweetResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllTweetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllTweetResponse.Merge(m, src)
+}
+func (m *QueryAllTweetResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllTweetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllTweetResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllTweetResponse proto.InternalMessageInfo
+
+func (m *QueryAllTweetResponse) GetTweet() []Tweet {
+	if m != nil {
+		return m.Tweet
+	}
+	return nil
+}
+
+func (m *QueryAllTweetResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "hkirat.twitos.twitos.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "hkirat.twitos.twitos.QueryParamsResponse")
@@ -574,56 +758,68 @@ func init() {
 	proto.RegisterType((*QueryGetWalletToUserIdResponse)(nil), "hkirat.twitos.twitos.QueryGetWalletToUserIdResponse")
 	proto.RegisterType((*QueryAllWalletToUserIdRequest)(nil), "hkirat.twitos.twitos.QueryAllWalletToUserIdRequest")
 	proto.RegisterType((*QueryAllWalletToUserIdResponse)(nil), "hkirat.twitos.twitos.QueryAllWalletToUserIdResponse")
+	proto.RegisterType((*QueryGetTweetRequest)(nil), "hkirat.twitos.twitos.QueryGetTweetRequest")
+	proto.RegisterType((*QueryGetTweetResponse)(nil), "hkirat.twitos.twitos.QueryGetTweetResponse")
+	proto.RegisterType((*QueryAllTweetRequest)(nil), "hkirat.twitos.twitos.QueryAllTweetRequest")
+	proto.RegisterType((*QueryAllTweetResponse)(nil), "hkirat.twitos.twitos.QueryAllTweetResponse")
 }
 
 func init() { proto.RegisterFile("twitos/query.proto", fileDescriptor_38c9b27ef6ea820d) }
 
 var fileDescriptor_38c9b27ef6ea820d = []byte{
-	// 698 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x96, 0xcf, 0x6b, 0xd4, 0x40,
-	0x14, 0xc7, 0x77, 0xfa, 0x13, 0x47, 0x28, 0x74, 0x1a, 0x7f, 0x10, 0xb6, 0xa9, 0x0c, 0xd5, 0xfe,
-	0x92, 0x0c, 0xfd, 0x21, 0x82, 0xb7, 0x2d, 0x62, 0x15, 0x3c, 0xb4, 0x4b, 0x45, 0x10, 0x64, 0x99,
-	0x74, 0x87, 0x34, 0x98, 0x66, 0xd2, 0x64, 0xd6, 0xb6, 0x88, 0x17, 0xf5, 0xa2, 0x27, 0x41, 0xf4,
-	0xdf, 0xf0, 0xe2, 0xd5, 0x7b, 0x8f, 0x05, 0x2f, 0x9e, 0x44, 0x5a, 0xff, 0x10, 0xc9, 0xcc, 0xdb,
-	0xb6, 0xd9, 0x66, 0xe3, 0x16, 0x7b, 0xda, 0xcd, 0xcc, 0x7b, 0xdf, 0xef, 0xe7, 0xbd, 0xcc, 0xbc,
-	0x5d, 0x4c, 0xd4, 0x4e, 0xa0, 0x64, 0xca, 0xb6, 0x5b, 0x22, 0xd9, 0x73, 0xe3, 0x44, 0x2a, 0x49,
-	0xac, 0xcd, 0x17, 0x41, 0xc2, 0x95, 0x6b, 0xb6, 0xe0, 0xc3, 0xb6, 0x7c, 0xe9, 0x4b, 0x1d, 0xc0,
-	0xb2, 0x6f, 0x26, 0xd6, 0xae, 0xfa, 0x52, 0xfa, 0xa1, 0x60, 0x3c, 0x0e, 0x18, 0x8f, 0x22, 0xa9,
-	0xb8, 0x0a, 0x64, 0x94, 0xc2, 0xee, 0xec, 0x86, 0x4c, 0xb7, 0x64, 0xca, 0x3c, 0x9e, 0x0a, 0x63,
-	0xc1, 0x5e, 0xce, 0x7b, 0x42, 0xf1, 0x79, 0x16, 0x73, 0x3f, 0x88, 0x74, 0x30, 0xc4, 0x8e, 0x01,
-	0x49, 0xcc, 0x13, 0xbe, 0xd5, 0x16, 0xb0, 0x60, 0xb1, 0xe9, 0x35, 0x36, 0x05, 0x6f, 0xc2, 0xea,
-	0x28, 0xac, 0xb6, 0x52, 0x91, 0xc0, 0x92, 0x03, 0x4b, 0x3b, 0x3c, 0x0c, 0x85, 0x6a, 0x28, 0xd9,
-	0xc8, 0x36, 0x1b, 0x01, 0xa4, 0x50, 0x0b, 0x93, 0xb5, 0xcc, 0x7f, 0x55, 0xab, 0xd7, 0xc5, 0x76,
-	0x4b, 0xa4, 0x8a, 0xae, 0xe1, 0xb1, 0xdc, 0x6a, 0x1a, 0xcb, 0x28, 0x15, 0xe4, 0x1e, 0x1e, 0x32,
-	0x14, 0xd7, 0xd1, 0x0d, 0x34, 0x7d, 0x79, 0xa1, 0xea, 0x16, 0x75, 0xc4, 0x35, 0x59, 0xcb, 0x03,
-	0xfb, 0xbf, 0x26, 0x2a, 0x75, 0xc8, 0xa0, 0xd7, 0xf0, 0x15, 0x2d, 0xb9, 0x22, 0xd4, 0x7d, 0xef,
-	0xa1, 0xe0, 0xcd, 0xb6, 0xd7, 0x3a, 0xbe, 0xda, 0xb9, 0x71, 0x62, 0x67, 0x56, 0xca, 0xed, 0x4c,
-	0x4c, 0xdb, 0xce, 0x3c, 0xd1, 0x39, 0xa8, 0x60, 0x45, 0xa8, 0x27, 0xa9, 0x48, 0xc0, 0x8c, 0x58,
-	0x78, 0x30, 0x88, 0x9a, 0x62, 0x57, 0x2b, 0x5e, 0xaa, 0x9b, 0x07, 0xfa, 0x18, 0x5b, 0xf9, 0x60,
-	0x00, 0x58, 0xc2, 0x03, 0x59, 0xb7, 0xc0, 0xde, 0x2e, 0xb6, 0xcf, 0x32, 0xc0, 0x5c, 0x47, 0xd3,
-	0xe7, 0x60, 0x5d, 0x0b, 0xc3, 0xd3, 0xd6, 0x0f, 0x30, 0x3e, 0x79, 0xb7, 0x20, 0x79, 0xcb, 0x35,
-	0x07, 0xc1, 0xcd, 0x0e, 0x82, 0x6b, 0xce, 0x1a, 0x1c, 0x04, 0x77, 0x95, 0xfb, 0x02, 0x72, 0xeb,
-	0xa7, 0x32, 0xe9, 0x67, 0x04, 0xb4, 0xc7, 0xfa, 0x67, 0x68, 0xfb, 0x7b, 0xa7, 0x25, 0x2b, 0x39,
-	0xac, 0x3e, 0x8d, 0x35, 0xf5, 0x4f, 0x2c, 0x63, 0x99, 0xe3, 0xba, 0x83, 0xc7, 0xdb, 0x4d, 0x7c,
-	0xaa, 0x0f, 0xdb, 0xba, 0xcc, 0xcc, 0x1e, 0x35, 0xcb, 0x7b, 0xaf, 0xb0, 0xd3, 0x2d, 0x0d, 0xea,
-	0xaa, 0xe3, 0x91, 0x9d, 0xdc, 0x0e, 0x34, 0x6f, 0xb2, 0xb8, 0xc2, 0xbc, 0x0a, 0xd4, 0xda, 0xa1,
-	0x40, 0x7d, 0x80, 0xad, 0x85, 0x61, 0x31, 0xec, 0x45, 0xbd, 0xad, 0xef, 0x08, 0xea, 0x2b, 0x70,
-	0x2a, 0xa9, 0xaf, 0xff, 0xff, 0xea, 0xbb, 0xb0, 0xb7, 0xba, 0xf0, 0x65, 0x18, 0x0f, 0x6a, 0x7e,
-	0xf2, 0x16, 0xe1, 0x21, 0x73, 0xb3, 0xc9, 0x74, 0x31, 0xd9, 0xd9, 0x41, 0x62, 0xcf, 0xf4, 0x10,
-	0x69, 0x5c, 0xe9, 0xe4, 0x9b, 0x1f, 0x7f, 0x3e, 0xf5, 0x39, 0xa4, 0xca, 0x4c, 0x0a, 0x83, 0xc9,
-	0x95, 0x1b, 0x7f, 0xe4, 0x03, 0x6a, 0x0f, 0x05, 0x32, 0x57, 0xa2, 0xdd, 0x39, 0x65, 0xec, 0xdb,
-	0xbd, 0x05, 0x03, 0xcb, 0x4d, 0xcd, 0x32, 0x41, 0xc6, 0x8b, 0x59, 0x60, 0xea, 0x92, 0xf7, 0x08,
-	0x0f, 0x64, 0x0d, 0x27, 0x33, 0xe5, 0xea, 0xa7, 0xc6, 0x80, 0x3d, 0xdb, 0x4b, 0x28, 0x60, 0xcc,
-	0x6a, 0x8c, 0x49, 0x42, 0x8b, 0x31, 0xb2, 0xfb, 0xcb, 0x5e, 0xe9, 0x6b, 0xf4, 0x9a, 0xbc, 0x43,
-	0x78, 0x38, 0x4b, 0xae, 0x85, 0x61, 0x29, 0x4e, 0x7e, 0x2a, 0x95, 0xe2, 0x74, 0x0c, 0x18, 0x4a,
-	0x35, 0x4e, 0x95, 0xd8, 0xdd, 0x71, 0xc8, 0x37, 0x84, 0x47, 0xf2, 0x27, 0x94, 0x2c, 0x96, 0x57,
-	0x5c, 0x78, 0xff, 0xec, 0xa5, 0xf3, 0x25, 0x01, 0xe1, 0x5d, 0x4d, 0x38, 0x4f, 0x58, 0x31, 0xe1,
-	0x99, 0x1f, 0xc1, 0xe3, 0xee, 0x7d, 0x45, 0x78, 0x34, 0xaf, 0x99, 0xf5, 0x71, 0xb1, 0xbc, 0x39,
-	0xe7, 0x27, 0xef, 0x3a, 0x04, 0x28, 0xd3, 0xe4, 0x33, 0x64, 0xaa, 0x47, 0xf2, 0xe5, 0xda, 0xfe,
-	0xa1, 0x83, 0x0e, 0x0e, 0x1d, 0xf4, 0xfb, 0xd0, 0x41, 0x1f, 0x8f, 0x9c, 0xca, 0xc1, 0x91, 0x53,
-	0xf9, 0x79, 0xe4, 0x54, 0x9e, 0x4d, 0xf9, 0x81, 0xda, 0x6c, 0x79, 0xee, 0x86, 0xdc, 0xea, 0x10,
-	0xdb, 0x3d, 0x56, 0xdd, 0x8b, 0x45, 0xea, 0x0d, 0xe9, 0xbf, 0x00, 0x8b, 0x7f, 0x03, 0x00, 0x00,
-	0xff, 0xff, 0xf7, 0x65, 0x35, 0x5b, 0xec, 0x08, 0x00, 0x00,
+	// 830 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x96, 0xcf, 0x4f, 0x13, 0x5b,
+	0x14, 0xc7, 0x7b, 0x4b, 0xe1, 0x3d, 0xee, 0x4b, 0x48, 0xb8, 0xf4, 0xbd, 0x67, 0x86, 0x32, 0x90,
+	0x2b, 0xf2, 0xd3, 0xcc, 0x84, 0x1f, 0x86, 0xc4, 0x5d, 0x89, 0x11, 0x4d, 0x5c, 0x40, 0x83, 0x31,
+	0x31, 0xd1, 0x66, 0x4a, 0x6f, 0x86, 0x89, 0x43, 0x6f, 0xe9, 0xdc, 0x5a, 0x08, 0x61, 0xa3, 0x2e,
+	0xd4, 0x95, 0x89, 0x71, 0xe1, 0x3f, 0xa1, 0x1b, 0xb7, 0xee, 0x59, 0x92, 0xb8, 0x71, 0x65, 0x0c,
+	0xf8, 0x87, 0x98, 0x7b, 0xef, 0x99, 0xb6, 0xd3, 0x0e, 0x43, 0x89, 0x5d, 0x41, 0xcf, 0x3d, 0xe7,
+	0x7c, 0x3f, 0xe7, 0xdc, 0x33, 0x67, 0x06, 0x13, 0xd1, 0xf0, 0x04, 0x0f, 0xec, 0xfd, 0x3a, 0xab,
+	0x1d, 0x5a, 0xd5, 0x1a, 0x17, 0x9c, 0x64, 0x77, 0x9f, 0x79, 0x35, 0x47, 0x58, 0xfa, 0x08, 0xfe,
+	0x18, 0x59, 0x97, 0xbb, 0x5c, 0x39, 0xd8, 0xf2, 0x3f, 0xed, 0x6b, 0xe4, 0x5c, 0xce, 0x5d, 0x9f,
+	0xd9, 0x4e, 0xd5, 0xb3, 0x9d, 0x4a, 0x85, 0x0b, 0x47, 0x78, 0xbc, 0x12, 0xc0, 0xe9, 0xc2, 0x0e,
+	0x0f, 0xf6, 0x78, 0x60, 0x97, 0x9c, 0x80, 0x69, 0x09, 0xfb, 0xf9, 0x52, 0x89, 0x09, 0x67, 0xc9,
+	0xae, 0x3a, 0xae, 0x57, 0x51, 0xce, 0xe0, 0x3b, 0x06, 0x24, 0x55, 0xa7, 0xe6, 0xec, 0x85, 0x09,
+	0xb2, 0x60, 0x2c, 0x97, 0x8a, 0xbb, 0xcc, 0x29, 0x83, 0x75, 0x14, 0xac, 0xf5, 0x80, 0xd5, 0xc0,
+	0x64, 0x82, 0xa9, 0xe1, 0xf8, 0x3e, 0x13, 0x45, 0xc1, 0x8b, 0xf2, 0xb0, 0xe8, 0x85, 0x21, 0x61,
+	0x9d, 0xa2, 0xc1, 0x98, 0xd0, 0x36, 0x9a, 0xc5, 0x64, 0x4b, 0x32, 0x6d, 0x2a, 0xc5, 0x02, 0xdb,
+	0xaf, 0xb3, 0x40, 0xd0, 0x2d, 0x3c, 0x16, 0xb1, 0x06, 0x55, 0x5e, 0x09, 0x18, 0xb9, 0x8d, 0x87,
+	0x34, 0xd9, 0x35, 0x34, 0x85, 0xe6, 0xfe, 0x59, 0xce, 0x59, 0x71, 0x5d, 0xb2, 0x74, 0xd4, 0x7a,
+	0xe6, 0xe4, 0xc7, 0x64, 0xaa, 0x00, 0x11, 0xf4, 0x7f, 0xfc, 0xaf, 0x4a, 0xb9, 0xc1, 0xc4, 0x9d,
+	0xd2, 0x3d, 0xe6, 0x94, 0x43, 0xad, 0x6d, 0xfc, 0x5f, 0xe7, 0x41, 0x4b, 0x4e, 0x5b, 0x92, 0xe5,
+	0xb4, 0x4f, 0x28, 0xa7, 0x7f, 0xd1, 0x45, 0xa8, 0x60, 0x83, 0x89, 0x87, 0x01, 0xab, 0x81, 0x18,
+	0xc9, 0xe2, 0x41, 0xaf, 0x52, 0x66, 0x07, 0x2a, 0xe3, 0x70, 0x41, 0xff, 0xa0, 0x0f, 0x70, 0x36,
+	0xea, 0x0c, 0x00, 0xab, 0x38, 0x23, 0x3b, 0x08, 0xf2, 0x46, 0xbc, 0xbc, 0x8c, 0x00, 0x71, 0xe5,
+	0x4d, 0x9f, 0x80, 0x74, 0xde, 0xf7, 0xdb, 0xa5, 0xef, 0x62, 0xdc, 0xba, 0x6f, 0x48, 0x39, 0x63,
+	0xe9, 0xe1, 0xb0, 0xe4, 0x70, 0x58, 0x7a, 0xfe, 0x60, 0x38, 0xac, 0x4d, 0xc7, 0x65, 0x10, 0x5b,
+	0x68, 0x8b, 0xa4, 0x1f, 0x10, 0xd0, 0x36, 0xf3, 0x77, 0xd1, 0x0e, 0xf4, 0x4e, 0x4b, 0x36, 0x22,
+	0x58, 0x69, 0x85, 0x35, 0x7b, 0x29, 0x96, 0x96, 0x8c, 0x70, 0xdd, 0xc2, 0x13, 0x61, 0x13, 0x1f,
+	0xa9, 0x01, 0xdc, 0xe6, 0x52, 0xec, 0x7e, 0x39, 0xb9, 0xf7, 0x02, 0x9b, 0x17, 0x85, 0x41, 0x5d,
+	0x05, 0x3c, 0xd2, 0x88, 0x9c, 0x40, 0xf3, 0xa6, 0xe3, 0x2b, 0x8c, 0x66, 0x81, 0x5a, 0x3b, 0x32,
+	0x50, 0x17, 0x60, 0xf3, 0xbe, 0x1f, 0x0f, 0xdb, 0xaf, 0xdb, 0xfa, 0x8a, 0xa0, 0xbe, 0x18, 0xa5,
+	0x84, 0xfa, 0x06, 0xfe, 0xac, 0xbe, 0xfe, 0xdd, 0xea, 0x4c, 0xeb, 0xd1, 0xd8, 0x96, 0x6b, 0x23,
+	0xec, 0xcf, 0x08, 0x4e, 0x7b, 0xfa, 0x22, 0x32, 0x85, 0xb4, 0x57, 0xa6, 0x9b, 0xad, 0xc7, 0x1b,
+	0xfc, 0xa0, 0xba, 0x35, 0x3c, 0xa8, 0x0c, 0xd0, 0xc3, 0xf1, 0xf8, 0xa2, 0x94, 0x0b, 0xd4, 0xa2,
+	0xfd, 0xe9, 0xd3, 0xd6, 0x98, 0x47, 0x94, 0xfb, 0x75, 0x33, 0x1f, 0x11, 0x20, 0xb7, 0x04, 0xba,
+	0x91, 0x07, 0xae, 0x82, 0xdc, 0xb7, 0xae, 0x2f, 0x7f, 0x1a, 0xc6, 0x83, 0x8a, 0x8d, 0xbc, 0x44,
+	0x78, 0x48, 0xef, 0x53, 0x32, 0x17, 0xcf, 0xd1, 0xbd, 0xbe, 0x8d, 0xf9, 0x1e, 0x3c, 0xb5, 0x2a,
+	0x9d, 0x7e, 0xf1, 0xed, 0xd7, 0xfb, 0xb4, 0x49, 0x72, 0xb6, 0x0e, 0xb1, 0x9b, 0xef, 0x88, 0xb6,
+	0x17, 0x11, 0x79, 0x8b, 0xc2, 0x55, 0x4c, 0x16, 0x13, 0x72, 0x77, 0xee, 0x76, 0xe3, 0x66, 0x6f,
+	0xce, 0xc0, 0x72, 0x43, 0xb1, 0x4c, 0x92, 0x89, 0x78, 0x16, 0x78, 0xff, 0x91, 0x37, 0x08, 0x67,
+	0xe4, 0x98, 0x93, 0xf9, 0xe4, 0xec, 0x6d, 0xcb, 0xd7, 0x58, 0xe8, 0xc5, 0x15, 0x30, 0x16, 0x14,
+	0xc6, 0x34, 0xa1, 0xf1, 0x18, 0x72, 0x6b, 0xda, 0x47, 0x6a, 0x79, 0x1d, 0x93, 0x57, 0x08, 0xff,
+	0x25, 0x83, 0xf3, 0xbe, 0x9f, 0x88, 0x13, 0x7d, 0x17, 0x24, 0xe2, 0x74, 0xac, 0x75, 0x4a, 0x15,
+	0x4e, 0x8e, 0x18, 0x17, 0xe3, 0x90, 0x2f, 0x08, 0x8f, 0x44, 0xf7, 0x02, 0x59, 0x49, 0xae, 0x38,
+	0x76, 0xeb, 0x19, 0xab, 0x57, 0x0b, 0x02, 0xc2, 0x35, 0x45, 0xb8, 0x44, 0xec, 0x78, 0xc2, 0xae,
+	0xcf, 0x91, 0x66, 0xf7, 0x3e, 0x23, 0x3c, 0x1a, 0xcd, 0x29, 0xfb, 0xb8, 0x92, 0xdc, 0x9c, 0xab,
+	0x93, 0x5f, 0xb8, 0x7a, 0xa9, 0xad, 0xc8, 0xe7, 0xc9, 0x6c, 0x8f, 0xe4, 0xf2, 0x41, 0x80, 0x67,
+	0xfd, 0x92, 0x89, 0x6a, 0x5f, 0x59, 0xc6, 0x62, 0x4f, 0xbe, 0xc0, 0x34, 0xa7, 0x98, 0x28, 0x99,
+	0x8a, 0x67, 0x52, 0x1f, 0x6f, 0xf6, 0x91, 0x57, 0x3e, 0x26, 0xaf, 0x11, 0xfe, 0x5b, 0xc5, 0xca,
+	0xae, 0x5d, 0x32, 0x52, 0x3d, 0xf3, 0x74, 0x6e, 0x43, 0x7a, 0x5d, 0xf1, 0x4c, 0x90, 0xf1, 0x04,
+	0x9e, 0xf5, 0xfc, 0xc9, 0x99, 0x89, 0x4e, 0xcf, 0x4c, 0xf4, 0xf3, 0xcc, 0x44, 0xef, 0xce, 0xcd,
+	0xd4, 0xe9, 0xb9, 0x99, 0xfa, 0x7e, 0x6e, 0xa6, 0x1e, 0xcf, 0xba, 0x9e, 0xd8, 0xad, 0x97, 0xac,
+	0x1d, 0xbe, 0xd7, 0x91, 0xe0, 0xa0, 0x99, 0xe2, 0xb0, 0xca, 0x82, 0xd2, 0x90, 0xfa, 0x20, 0x5d,
+	0xf9, 0x1d, 0x00, 0x00, 0xff, 0xff, 0x44, 0x58, 0xbe, 0xaa, 0x8e, 0x0b, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -650,6 +846,10 @@ type QueryClient interface {
 	WalletToUserId(ctx context.Context, in *QueryGetWalletToUserIdRequest, opts ...grpc.CallOption) (*QueryGetWalletToUserIdResponse, error)
 	// Queries a list of WalletToUserId items.
 	WalletToUserIdAll(ctx context.Context, in *QueryAllWalletToUserIdRequest, opts ...grpc.CallOption) (*QueryAllWalletToUserIdResponse, error)
+	// Queries a Tweet by id.
+	Tweet(ctx context.Context, in *QueryGetTweetRequest, opts ...grpc.CallOption) (*QueryGetTweetResponse, error)
+	// Queries a list of Tweet items.
+	TweetAll(ctx context.Context, in *QueryAllTweetRequest, opts ...grpc.CallOption) (*QueryAllTweetResponse, error)
 }
 
 type queryClient struct {
@@ -714,6 +914,24 @@ func (c *queryClient) WalletToUserIdAll(ctx context.Context, in *QueryAllWalletT
 	return out, nil
 }
 
+func (c *queryClient) Tweet(ctx context.Context, in *QueryGetTweetRequest, opts ...grpc.CallOption) (*QueryGetTweetResponse, error) {
+	out := new(QueryGetTweetResponse)
+	err := c.cc.Invoke(ctx, "/hkirat.twitos.twitos.Query/Tweet", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) TweetAll(ctx context.Context, in *QueryAllTweetRequest, opts ...grpc.CallOption) (*QueryAllTweetResponse, error) {
+	out := new(QueryAllTweetResponse)
+	err := c.cc.Invoke(ctx, "/hkirat.twitos.twitos.Query/TweetAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
@@ -728,6 +946,10 @@ type QueryServer interface {
 	WalletToUserId(context.Context, *QueryGetWalletToUserIdRequest) (*QueryGetWalletToUserIdResponse, error)
 	// Queries a list of WalletToUserId items.
 	WalletToUserIdAll(context.Context, *QueryAllWalletToUserIdRequest) (*QueryAllWalletToUserIdResponse, error)
+	// Queries a Tweet by id.
+	Tweet(context.Context, *QueryGetTweetRequest) (*QueryGetTweetResponse, error)
+	// Queries a list of Tweet items.
+	TweetAll(context.Context, *QueryAllTweetRequest) (*QueryAllTweetResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -751,6 +973,12 @@ func (*UnimplementedQueryServer) WalletToUserId(ctx context.Context, req *QueryG
 }
 func (*UnimplementedQueryServer) WalletToUserIdAll(ctx context.Context, req *QueryAllWalletToUserIdRequest) (*QueryAllWalletToUserIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WalletToUserIdAll not implemented")
+}
+func (*UnimplementedQueryServer) Tweet(ctx context.Context, req *QueryGetTweetRequest) (*QueryGetTweetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Tweet not implemented")
+}
+func (*UnimplementedQueryServer) TweetAll(ctx context.Context, req *QueryAllTweetRequest) (*QueryAllTweetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TweetAll not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -865,6 +1093,42 @@ func _Query_WalletToUserIdAll_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Tweet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetTweetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Tweet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/hkirat.twitos.twitos.Query/Tweet",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Tweet(ctx, req.(*QueryGetTweetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_TweetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllTweetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).TweetAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/hkirat.twitos.twitos.Query/TweetAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).TweetAll(ctx, req.(*QueryAllTweetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "hkirat.twitos.twitos.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -892,6 +1156,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "WalletToUserIdAll",
 			Handler:    _Query_WalletToUserIdAll_Handler,
+		},
+		{
+			MethodName: "Tweet",
+			Handler:    _Query_Tweet_Handler,
+		},
+		{
+			MethodName: "TweetAll",
+			Handler:    _Query_TweetAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1304,6 +1576,151 @@ func (m *QueryAllWalletToUserIdResponse) MarshalToSizedBuffer(dAtA []byte) (int,
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryGetTweetRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetTweetRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetTweetRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetTweetResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetTweetResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetTweetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.Tweet.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllTweetRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllTweetRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllTweetRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllTweetResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllTweetResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllTweetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Tweet) > 0 {
+		for iNdEx := len(m.Tweet) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Tweet[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -1456,6 +1873,61 @@ func (m *QueryAllWalletToUserIdResponse) Size() (n int) {
 	_ = l
 	if len(m.WalletToUserId) > 0 {
 		for _, e := range m.WalletToUserId {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetTweetRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Id != 0 {
+		n += 1 + sovQuery(uint64(m.Id))
+	}
+	return n
+}
+
+func (m *QueryGetTweetResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.Tweet.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllTweetRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllTweetResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Tweet) > 0 {
+		for _, e := range m.Tweet {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
@@ -2421,6 +2893,364 @@ func (m *QueryAllWalletToUserIdResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.WalletToUserId = append(m.WalletToUserId, WalletToUserId{})
 			if err := m.WalletToUserId[len(m.WalletToUserId)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetTweetRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetTweetRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetTweetRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetTweetResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetTweetResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetTweetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tweet", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.Tweet.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllTweetRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllTweetRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllTweetRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllTweetResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllTweetResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllTweetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tweet", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Tweet = append(m.Tweet, Tweet{})
+			if err := m.Tweet[len(m.Tweet)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

@@ -1,0 +1,14 @@
+syntax = "proto3";
+package hkirat.twitos.twitos;
+
+option go_package = "github.com/hkirat/twitos/x/twitos/types";
+
+message Tweet {
+  uint64 id = 1;
+  uint64 tweetId = 2; 
+  uint64 owner = 3; 
+  string description = 4; 
+  uint64 likes = 5; 
+  uint64 comments = 6; 
+  
+}
